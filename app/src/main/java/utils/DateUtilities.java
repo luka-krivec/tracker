@@ -121,7 +121,6 @@ public class DateUtilities {
             Date dat = dfDate.parse(time);
             timeMillis = dat.getTime() ;
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
