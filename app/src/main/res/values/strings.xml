@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Application settings -->
     <string name="app_name">Cycling Master</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
+    <!-- Menu actions names -->
+    <string name="action_settings">Nastavitve</string>
+
+    <!-- Activities titles -->
+    <string name="title_activity_tracking">Tracking</string>
+
+    <!-- Buttons translations -->
+    <string name="btn_pause">Pavza</string>
+    <string name="btn_done">Končaj</string>
+    <string name="btn_save">Shrani</string>
+    <string name="btn_cancel">Prekliči</string>
+
+    <!-- Other translations -->
+    <string name="route_saved">Vožnja shranjena</string>
+    <string name="route_distance">Razdalja</string>
+    <string name="route_avg_speed">Povprečna hitrost</string>
+    <string name="route_name">Ime vožnje</string>
     <string name="not_support_gps">GPS ponudnik ni podprt!</string>
     <string name="not_support_network">Spletni ponudnik ni podprt!</string>
+    <string name="gps_disabled_settings_open">GPS ni omogočen. Odprem GPS nastavitve?</string>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+    <string name="external_storage_cant_write">Na SD kartico ni mogoče zapisati podatkov.</string>
 
 </resources>

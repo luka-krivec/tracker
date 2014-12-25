@@ -1,12 +1,12 @@
 package luka.cyclingmaster;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -49,7 +49,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.btnLauncherStart:
-                Toast.makeText(getApplicationContext(), "Start clicked", Toast.LENGTH_SHORT).show();
+                Intent trackingActivity = new Intent(this, TrackingActivity.class);
+                startActivity(trackingActivity);
                 break;
         }
     }
