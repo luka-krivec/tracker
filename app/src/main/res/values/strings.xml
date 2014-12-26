@@ -27,5 +27,9 @@
     <string name="yes">Da</string>
     <string name="no">Ne</string>
     <string name="external_storage_cant_write">Na SD kartico ni mogoče zapisati podatkov.</string>
+    <string name="title_activity_list_routes">ListRoutesActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
 
 </resources>

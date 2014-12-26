@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ImageButton btnLauncherStart;
+    private ImageButton btnLauncherActivities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         btnLauncherStart = (ImageButton) findViewById(R.id.btnLauncherStart);
         btnLauncherStart.setOnClickListener(this);
+
+        btnLauncherActivities = (ImageButton) findViewById(R.id.btnLauncherActivities);
+        btnLauncherActivities.setOnClickListener(this);
     }
 
 
@@ -51,6 +55,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.btnLauncherStart:
                 Intent trackingActivity = new Intent(this, TrackingActivity.class);
                 startActivity(trackingActivity);
+                break;
+            case R.id.btnLauncherActivities:
+                Intent listRoutesActivity = new Intent(this, ListRoutesActivity.class);
+                startActivity(listRoutesActivity);
                 break;
         }
     }
