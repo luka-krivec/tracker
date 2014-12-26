@@ -250,7 +250,6 @@ public class TrackingActivity extends ActionBarActivity implements View.OnClickL
     private void enableLocationSettings() {
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(settingsIntent);
-
     }
 
     @Override
@@ -272,7 +271,6 @@ public class TrackingActivity extends ActionBarActivity implements View.OnClickL
         prefsEditor.putLong("stopTime", timer.getStopTime());
         prefsEditor.commit();
 
-        // TODO: Chech why onDestroy from service is not called
         Intent intentGpsLoggerService = new Intent(this, GpsLoggerService.class);
         stopService(intentGpsLoggerService);
     }

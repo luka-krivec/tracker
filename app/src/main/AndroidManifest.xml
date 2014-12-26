@@ -36,6 +36,8 @@
             android:name=".TrackingActivity"
             android:label="@string/title_activity_tracking" >
         </activity>
+
+        <service android:name="gpslogger.GpsLoggerService" />
     </application>
 
 </manifest>
