@@ -238,7 +238,7 @@ public class TrackingActivity extends ActionBarActivity implements View.OnClickL
             } else {
                 timer.pause();
                 btnPause.setTag("Pause");
-                btnPause.setImageResource(R.drawable.button_launcher_start);
+                btnPause.setImageResource(R.drawable.button_launcher_start_flat);
 
             }
         } else {
