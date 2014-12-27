@@ -38,7 +38,7 @@ public class FileChooser extends ListActivity {
     private void fill(File f)
     {
         File[] dirs = f.listFiles();
-        this.setTitle("Trenutni direktorij: " + f.getName());
+        this.setTitle(getResources().getString(R.string.current_directory) + ": " + f.getName());
 
         List<Item>dir = new ArrayList<Item>();
         List<Item>fls = new ArrayList<Item>();
@@ -58,17 +58,7 @@ public class FileChooser extends ListActivity {
                     }
                     else buf = 0;
 
-                    String num_item = String.valueOf(buf);
-                    if(buf == 0)
-                        num_item = num_item + " datotek";
-                    else if(buf == 1)
-                        num_item = num_item + " datoteka";
-                    else if (buf == 2)
-                        num_item = num_item + " datoteki";
-                    else if (buf < 5)
-                        num_item = num_item + " datoteke";
-                    else
-                        num_item = num_item + " datotek";
+                    String num_item = String.valueOf(buf) + " " + getResources().getString(R.string.files);
 
                     dir.add(new Item(ff.getName(),num_item,date_modify_formatted,ff.getAbsolutePath(),"directory_icon"));
                 }
@@ -86,7 +76,7 @@ public class FileChooser extends ListActivity {
         dir.addAll(fls);
 
         if( f.getName().length() > 0 && !f.getName().equalsIgnoreCase("storage") )
-            dir.add(0,new Item("..","Starševski direktorij","",f.getParent(),"directory_up"));
+            dir.add(0,new Item("..",getResources().getString(R.string.parent_directory),"",f.getParent(),"directory_up"));
         adapter = new FileArrayAdapter(FileChooser.this,R.layout.file_view,dir);
         this.setListAdapter(adapter);
     }

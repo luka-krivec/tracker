@@ -253,12 +253,12 @@ public class TrackingActivity extends ActionBarActivity implements View.OnClickL
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String routeName) {
+    public void onDialogSaveRoutePositiveClick(DialogFragment dialog, String routeName) {
         stopSaveRouteService(true, routeName);
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
+    public void onDialogSaveRouteNegativeClick(DialogFragment dialog) {
         stopSaveRouteService(false, "");
     }
 

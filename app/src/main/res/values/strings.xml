@@ -37,6 +37,10 @@
     <string name="no_gpx_file_chosen">Izbrana ni nobena datoteka. Za nadaljevanje izberite datoteko s končnico GPX.</string>
     <string name="gpx_file_check_error">"Datoteka ni končnice GPX. Za nadaljevanje izberite datoteko s končnico GPX.</string>
     <string name="file_uploaded">Datoteka naložena</string>
+    <string name="current_directory">Trenutni direktorij</string>
+    <string name="files">datotek</string>
+    <string name="parent_directory">Starševski direktorij</string>
+    <string name="export_in_current_directory">Izvozi v trenutni direktorij</string>
 
     <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
 

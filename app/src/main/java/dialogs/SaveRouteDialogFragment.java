@@ -25,8 +25,8 @@ public class SaveRouteDialogFragment extends DialogFragment {
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String routeName);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        public void onDialogSaveRoutePositiveClick(DialogFragment dialog, String routeName);
+        public void onDialogSaveRouteNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -65,14 +65,14 @@ public class SaveRouteDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         String routeName = mEditTextSaveRoute.getText().toString();
                         // Send the positive button event back to the host activity
-                        mListener.onDialogPositiveClick(SaveRouteDialogFragment.this, routeName);
+                        mListener.onDialogSaveRoutePositiveClick(SaveRouteDialogFragment.this, routeName);
                     }
                 })
                 .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SaveRouteDialogFragment.this.getDialog().cancel();
                         // Send the negative button event back to the host activity
-                        mListener.onDialogNegativeClick(SaveRouteDialogFragment.this);
+                        mListener.onDialogSaveRouteNegativeClick(SaveRouteDialogFragment.this);
                     }
                 });
         return builder.create();
