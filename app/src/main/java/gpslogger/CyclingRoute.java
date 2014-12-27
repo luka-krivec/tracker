@@ -147,14 +147,14 @@ public class CyclingRoute implements Serializable {
 
     @Override
     public String toString() {
-        String res = "Ime: " + this.name + "\n";
-        res += "Razdalja: " + String.format("%.2f", this.distance) + "\n";
-        res += "Čas: " + DateUtilities.timeToString(this.time) + "\n";
-        res += "Čas začetka: " + DateUtilities.formatDate(startTime)  + "\n";
-        res += "Čas konca: " + DateUtilities.formatDate(endTime) + "\n";
-        res += "Povprečna hitrost: " + String.format("%.1f", getAverageSpeed()) + "\n";
-        res += "Najvišja hitrost: " + String.format("%.1f", this.maxSpeed) + "\n";
-        res += "Višina: " + String.format("%.0f", this.altitude);
+        String res = "Name: " + this.name + "\n";
+        res += "Distance: " + String.format("%.2f", this.distance) + "\n";
+        res += "Time: " + DateUtilities.timeToString(this.time) + "\n";
+        res += "Start time: " + DateUtilities.formatDate(startTime)  + "\n";
+        res += "End time: " + DateUtilities.formatDate(endTime) + "\n";
+        res += "Average speed: " + String.format("%.1f", getAverageSpeed()) + "\n";
+        res += "Max speed: " + String.format("%.1f", this.maxSpeed) + "\n";
+        res += "Altitude: " + String.format("%.0f", this.altitude);
         return res;
     }
 

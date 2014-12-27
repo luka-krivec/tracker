@@ -42,6 +42,11 @@
             android:name=".ListRoutesActivity"
             android:label="@string/title_activity_list_routes" >
         </activity>
+
+        <activity
+            android:name="fileexplorer.FileChooser"
+            android:label="@string/title_activity_file_chooser" >
+        </activity>
     </application>
 
 </manifest>

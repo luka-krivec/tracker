@@ -29,7 +29,7 @@ import android.os.Environment;
 
 public class GpxWriter {
 
-    private static final String GPX_TRANSORM_ERROR = "Napaka pri transformaciji XML-ja.";
+    private static final String GPX_TRANSORM_ERROR = "GPX transform error";
     private static final int TWO_HOURS = 1000 * 60 * 120;
     public static String GPX_ERROR;
     public static String GPX_DATA_ERROR;
@@ -180,7 +180,7 @@ public class GpxWriter {
     public static boolean writeGpxToExternalStorage(Document doc, File gpxLocation) {
 
         if(!canWriteToExternalStorage()) { // We cant write to external storage
-            GPX_ERROR = "Ni pravic za pisanje na zunanji pomnilnik!";
+            GPX_ERROR = "No rights to write on external media.";
             return false;
         }
 

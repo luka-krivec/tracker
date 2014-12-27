@@ -6,15 +6,20 @@
 
     <!-- Menu actions names -->
     <string name="action_settings">Nastavitve</string>
+    <string name="action_importGpx">Uvozi GPX</string>
 
     <!-- Activities titles -->
-    <string name="title_activity_tracking">Tracking</string>
+    <string name="title_activity_tracking">Beleženje</string>
+    <string name="title_activity_file_chooser">Iskalnik datotek</string>
+    <string name="title_activity_list_routes">Aktivnosti</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
     <string name="btn_done">Končaj</string>
     <string name="btn_save">Shrani</string>
     <string name="btn_cancel">Prekliči</string>
+    <string name="btn_browse">Prebrskaj</string>
+    <string name="btn_upload">Naloži</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
@@ -27,8 +32,11 @@
     <string name="yes">Da</string>
     <string name="no">Ne</string>
     <string name="external_storage_cant_write">Na SD kartico ni mogoče zapisati podatkov.</string>
-    <string name="title_activity_list_routes">ListRoutesActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="hint_browse_gpx">Poišči GPX datoteko</string>
+    <string name="no_gpx_file_chosen">Izbrana ni nobena datoteka. Za nadaljevanje izberite datoteko s končnico GPX.</string>
+    <string name="gpx_file_check_error">"Datoteka ni končnice GPX. Za nadaljevanje izberite datoteko s končnico GPX.</string>
+    <string name="file_uploaded">Datoteka naložena</string>
 
     <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
 

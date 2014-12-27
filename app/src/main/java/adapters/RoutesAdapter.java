@@ -34,14 +34,7 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         CyclingRoute route = objects[position];
 
-        if(route.isFirst())
-            holder.textViewDate.setText(DateUtilities.formatShortDate(route.getStartTime()));
-        else
-        {
-            holder.textViewDate.setText("");
-            holder.textViewDate.setHeight(1);
-        }
-
+        holder.textViewDate.setText(DateUtilities.formatShortDate(route.getStartTime()));
         holder.textViewName.setText(route.getName());
         holder.textViewDistance.setText(String.format("%.2f km", route.getDistance() / 1000));
         holder.textViewTime.setText(DateUtilities.timeToString((route.getTime())));
