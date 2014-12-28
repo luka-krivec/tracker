@@ -184,6 +184,30 @@ public class TrackingActivity extends ActionBarActivity implements View.OnClickL
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        if(timer != null) {
+
+            // Stop timer
+            if(!timerStopped) {
+                timer.stop();
+                mHandler.sendEmptyMessage(MSG_STOP_TIMER);
+                timerStopped = true;
+            }
+
+            savedInstanceState.putString("currentTime", txtStopWatch.getText().toString());
+            Log.i("TrackingActivity: saved time = ", txtStopWatch.getText().toString());
+            Log.i("TrackingActivity: timer time = ", timer.getElapsedTimeSecs() + "");
+            savedInstanceState.putString("currentDistance", txtCurrentDistance.getText().toString());
+            savedInstanceState.putString("currentAvgSpeed", txtCurrentAvgSpeed.getText().toString());
+            savedInstanceState.putSerializable("timer", timer);
+            savedInstanceState.putBoolean("timerStopped", timerStopped);
+        }
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

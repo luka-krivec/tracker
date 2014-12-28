@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Application settings -->
-    <string name="app_name">Cycling Master</string>
+    <string name="app_name">Kolesar</string>
 
     <!-- Menu actions names -->
     <string name="action_settings">Nastavitve</string>
