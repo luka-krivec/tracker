@@ -41,7 +41,7 @@
     <string name="files">datotek</string>
     <string name="parent_directory">Starševski direktorij</string>
     <string name="export_in_current_directory">Izvozi v trenutni direktorij</string>
-
     <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

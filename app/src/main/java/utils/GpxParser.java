@@ -143,14 +143,17 @@ public class GpxParser {
         catch(IOException ex)
         {
             LAST_ERROR = ex.getMessage();
+            ex.printStackTrace();
         }
         catch(SAXException ex)
         {
             LAST_ERROR = ex.getMessage();
+            ex.printStackTrace();
         }
         catch(ParserConfigurationException ex)
         {
             LAST_ERROR = ex.getMessage();
+            ex.printStackTrace();
         }
 
         return doc;

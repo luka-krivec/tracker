@@ -1,15 +1,28 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.File;
+import java.util.ArrayList;
+
 import gpslogger.CyclingRoute;
+import luka.cyclingmaster.MapActivity;
 import luka.cyclingmaster.R;
 import utils.DateUtilities;
+import utils.GpxParser;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder> {
 
@@ -34,7 +47,7 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         CyclingRoute route = objects[position];
 
-        holder.textViewDate.setText(DateUtilities.formatShortDate(route.getStartTime()));
+        holder.textViewDate.setText(DateUtilities.formatShortDate2(route.getStartTime()));
         holder.textViewName.setText(route.getName());
         holder.textViewDistance.setText(String.format("%.2f km", route.getDistance() / 1000));
         holder.textViewTime.setText(DateUtilities.timeToString((route.getTime())));
@@ -46,12 +59,13 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder
         return objects == null ? 0 : objects.length;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textViewDate;
         public TextView textViewName;
         public TextView textViewDistance;
         public TextView textViewTime;
         public TextView textViewAvgSpeed;
+        public ImageButton btnMap;
 
         public ViewHolder(View v) {
             super(v);
@@ -60,6 +74,20 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder
             textViewDistance = (TextView) v.findViewById(R.id.txtRowRouteDistance);
             textViewTime = (TextView) v.findViewById(R.id.txtRowRouteTime);
             textViewAvgSpeed = (TextView) v.findViewById(R.id.txtRowRouteAvgSpeed);
+            btnMap = (ImageButton) v.findViewById(R.id.btnRowRouteMap);
+            btnMap.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Context context = v.getContext();
+            String gpxFile = context.getExternalFilesDir(null).getAbsolutePath() + "/gpx/" + textViewDate.getText() + "/" + textViewName.getText() + ".gpx";
+
+            Intent mapActivity = new Intent(context, MapActivity.class);
+            mapActivity.putExtra("gpxFile", gpxFile);
+
+            context.startActivity(mapActivity);
         }
     }
+
 }
