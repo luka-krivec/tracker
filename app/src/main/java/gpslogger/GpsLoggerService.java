@@ -269,9 +269,9 @@ public class GpsLoggerService extends Service {
             boolean status = serviceGpxLoggerListener.saveStatus;
 
             if(status)
-                Toast.makeText(getApplicationContext(), "Pot uspešno shranjena", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.route_saved), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(getApplicationContext(), "Prišlo je do napake pri shranjevanju. Preverite ali imate dovolj prostora na pomnilniški kartici.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.route_save_failed), Toast.LENGTH_LONG).show();
         }
 
         Log.d("MyGPSLogger", "service done");

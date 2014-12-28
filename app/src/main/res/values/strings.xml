@@ -23,6 +23,7 @@
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
+    <string name="route_save_failed">Prišlo je do napake pri shranjevanju. Preverite ali imate dovolj prostora na pomnilniški kartici</string>
     <string name="route_distance">Razdalja</string>
     <string name="route_avg_speed">Povprečna hitrost</string>
     <string name="route_name">Ime vožnje</string>
