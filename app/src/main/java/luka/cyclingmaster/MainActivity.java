@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 
@@ -41,9 +43,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id)
+        {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_plans:
+                Intent plansActivity = new Intent(this, PlansActivity.class);
+                startActivity(plansActivity);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

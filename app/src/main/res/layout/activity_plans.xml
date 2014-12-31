@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="luka.cyclingmaster.PlansActivity">
+
+    <RelativeLayout
+        android:id="@+id/layoutMyPlans"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/rectangle_green_rounded_corners"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:id="@+id/txtMyPlans"
+            android:text="@string/my_plans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/editMyPlans"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/txtMyPlans"/>
+
+        <Button
+            android:id="@+id/btnMyPlansShare"
+            android:text="@string/btn_share"
+            android:textColor="@color/colorPrimary"
+            android:layout_toRightOf="@id/editMyPlans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtPlansReview"
+        android:text="@string/list_plans"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutMyPlans"/>
+
+</RelativeLayout>

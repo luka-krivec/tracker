@@ -7,11 +7,14 @@
     <!-- Menu actions names -->
     <string name="action_settings">Nastavitve</string>
     <string name="action_importGpx">Uvozi GPX</string>
+    <string name="action_plans">Plani</string>
 
     <!-- Activities titles -->
     <string name="title_activity_tracking">Beleženje</string>
     <string name="title_activity_file_chooser">Iskalnik datotek</string>
     <string name="title_activity_list_routes">Aktivnosti</string>
+    <string name="title_activity_map">Zemljevid</string>
+    <string name="title_activity_plans">Plani</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
@@ -20,6 +23,7 @@
     <string name="btn_cancel">Prekliči</string>
     <string name="btn_browse">Prebrskaj</string>
     <string name="btn_upload">Naloži</string>
+    <string name="btn_share">Deli</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
@@ -43,6 +47,7 @@
     <string name="parent_directory">Starševski direktorij</string>
     <string name="export_in_current_directory">Izvozi v trenutni direktorij</string>
     <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
-    <string name="title_activity_map">MapActivity</string>
+    <string name="my_plans">Moji plani</string>
+    <string name="list_plans">Seznam planov</string>
 
 </resources>
