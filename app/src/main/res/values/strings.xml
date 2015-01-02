@@ -15,6 +15,7 @@
     <string name="title_activity_list_routes">Aktivnosti</string>
     <string name="title_activity_map">Zemljevid</string>
     <string name="title_activity_plans">Plani</string>
+    <string name="title_activity_sign_up">Prijava</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
@@ -24,6 +25,7 @@
     <string name="btn_browse">Prebrskaj</string>
     <string name="btn_upload">Naloži</string>
     <string name="btn_share">Deli</string>
+    <string name="btn_login">Prijava</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
@@ -49,5 +51,13 @@
     <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
     <string name="my_plans">Moji plani</string>
     <string name="list_plans">Seznam planov</string>
+    <string name="title_activity_authenticator">AuthenticatorActivity</string>
+    <string name="email">Email naslov</string>
+    <string name="password">Geslo</string>
+    <string name="new_user">Nov uporabnik?</string>
+    <string name="name">Ime</string>
+    <string name="create_account">Ustvari račun</string>
+    <string name="already_member">Že član?</string>
+
 
 </resources>

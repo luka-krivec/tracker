@@ -51,6 +51,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 Intent plansActivity = new Intent(this, PlansActivity.class);
                 startActivity(plansActivity);
                 return true;
+            case R.id.action_signup:
+                Intent signUpActivity = new Intent(this, SignUpActivity.class);
+                startActivity(signUpActivity);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
