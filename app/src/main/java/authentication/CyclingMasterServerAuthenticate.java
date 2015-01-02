@@ -17,7 +17,7 @@ public class CyclingMasterServerAuthenticate implements ServerAuthenticate {
     @Override
     public String userSignIn(String user, String pass, String authType) throws Exception {
         String url = "http://cyclingmaster-mobilebackend.rhcloud.com/users";
-        String params = "userloginp=true&email=" + user + "&pass=" + pass + "&authType=" + authType;
+        String params = "userlogin=true&email=" + user + "&pass=" + pass + "&authType=" + authType;
         // TODO: Handle sign in result
         WebUtils.excutePost(url, params);
         return null;
