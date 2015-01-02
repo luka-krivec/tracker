@@ -10,7 +10,7 @@ public class CyclingMasterServerAuthenticate implements ServerAuthenticate {
         String url = "http://cyclingmaster-mobilebackend.rhcloud.com/users";
         String params = "usersignup=true&username" + name + "&email=" + email + "&pass=" + pass + "&authType=" + authType;
         // TODO: Handle sign up result
-        WebUtils.excutePost(url, params);
+        WebUtils.executePost(url, params);
         return null;
     }
 
@@ -19,7 +19,7 @@ public class CyclingMasterServerAuthenticate implements ServerAuthenticate {
         String url = "http://cyclingmaster-mobilebackend.rhcloud.com/users";
         String params = "userlogin=true&email=" + user + "&pass=" + pass + "&authType=" + authType;
         // TODO: Handle sign in result
-        WebUtils.excutePost(url, params);
+        WebUtils.executePost(url, params);
         return null;
     }
 }
