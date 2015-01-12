@@ -44,7 +44,6 @@ public class WebUtils {
             StringBuffer response = new StringBuffer();
             while((line = rd.readLine()) != null) {
                 response.append(line);
-                response.append('\r');
             }
             rd.close();
             return response.toString();
