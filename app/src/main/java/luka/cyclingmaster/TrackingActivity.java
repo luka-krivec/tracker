@@ -59,7 +59,6 @@ public class TrackingActivity extends ActionBarActivity
     private final int REFRESH_RATE = 1; // refresh rate for timer in seconds
     private final int REFRESH_SPEED_AND_DISTANCE = 10; // refresh speed and distance on screen every n seconds
 
-    private StopWatch timer;
     private TextView txtStopWatch;
     private TextView txtCurrentDistance;
     private TextView txtCurrentAvgSpeed;
@@ -68,7 +67,6 @@ public class TrackingActivity extends ActionBarActivity
 
     private File dirExternalStorageGpxStore;
 
-    private boolean timerStopped = false;
     private int counterRefreshSpeedAndDistance; // to refresh speed and distance on REFRESH_SPEED_AND_DISTANCE seconds
 
     public static GoogleApiClient mGoogleApiClient;
@@ -91,38 +89,57 @@ public class TrackingActivity extends ActionBarActivity
             switch (msg.what) {
                 case MSG_UPDATE_TIMER:
                     updateUIData();
-                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE*1000); //text view is updated every second,
+                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE*1000); //text view is updated every REFRESH_RATE seconds,
                     break;                                  //though the timer is still running
                 case MSG_STOP_TIMER:
-                    mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
-                    timer.stop(); //stop timer
+                    stopStopWatch();
                     updateUIData();
-                    timerStopped = true;
-
                     break;
             }
         }
     };
 
-    private void updateUIData() {
-        long elapsed = timer.getElapsedTimeSecs();
-        txtStopWatch.setText(DateUtilities.secondsTo_hhmmss(elapsed));
-
-        counterRefreshSpeedAndDistance++;
-
-        if (counterRefreshSpeedAndDistance == REFRESH_SPEED_AND_DISTANCE) {
-            double currentDistance = LocationReceiver.currentDistance;
-            double currentAvgSpeed = Utils.getAverageSpeed(currentDistance, elapsed);
-
-            txtCurrentDistance.setText(String.format("%.2f", currentDistance / 1000));
-            txtCurrentAvgSpeed.setText(String.format("%.2f", currentAvgSpeed));
-            counterRefreshSpeedAndDistance = 0;
-
-            Log.d("TRACKER", "distance: " + currentDistance);
-            Log.d("TRACKER", "time: " + elapsed);
-            Log.d("TRACKER", "Average speed: " + currentAvgSpeed);
+    private void stopStopWatch() {
+        if(BackgroundLocationService.timer != null) {
+            BackgroundLocationService.timer.stop();
+            mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
         }
+    }
 
+    private void pauseStopWatch() {
+        if(BackgroundLocationService.timer != null) {
+            BackgroundLocationService.timer.pause();
+            mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
+        }
+    }
+
+    private void resumeStopWatch() {
+        if(BackgroundLocationService.timer != null) {
+            BackgroundLocationService.timer.resume();
+            mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE * 1000); //text view is updated every REFRESH_RATE seconds,
+        }
+    }
+
+    private void updateUIData() {
+        if(BackgroundLocationService.timer != null) {
+            long elapsed = BackgroundLocationService.timer.getElapsedTimeSecs();
+            txtStopWatch.setText(DateUtilities.secondsTo_hhmmss(elapsed));
+
+            counterRefreshSpeedAndDistance++;
+
+            if (counterRefreshSpeedAndDistance == REFRESH_SPEED_AND_DISTANCE) {
+                double currentDistance = LocationReceiver.currentDistance;
+                double currentAvgSpeed = Utils.getAverageSpeed(currentDistance, elapsed);
+
+                txtCurrentDistance.setText(String.format("%.1f", currentDistance / 1000));
+                txtCurrentAvgSpeed.setText(String.format("%.1f", currentAvgSpeed));
+                counterRefreshSpeedAndDistance = 0;
+
+                Log.d("TRACKER", "distance: " + currentDistance);
+                Log.d("TRACKER", "time: " + elapsed);
+                Log.d("TRACKER", "Average speed: " + currentAvgSpeed);
+            }
+        }
     }
 
     @Override
@@ -140,11 +157,15 @@ public class TrackingActivity extends ActionBarActivity
         btnStopTracking = (ImageButton) findViewById(R.id.btnStopTracking);
         btnStopTracking.setOnClickListener(this);
 
-        if(timer == null) {
-            timer = new StopWatch();
-        }
-
         updateValuesFromBundle(savedInstanceState);
+
+        if(BackgroundLocationService.timer == null || BackgroundLocationService.timer.isRunning()) {
+            btnPause.setTag("Start");
+            btnPause.setImageResource(R.drawable.button_pause);
+        } else {
+            btnPause.setTag("Pause");
+            btnPause.setImageResource(R.drawable.button_launcher_start_flat);
+        }
 
         // Initialize folder on SD card for saving GPX files
         if(AndroidUtils.isExternalStorageWritable()) {
@@ -164,17 +185,8 @@ public class TrackingActivity extends ActionBarActivity
         if (gpsEnabled) {
             buildGoogleApiClient();
 
-            if (savedInstanceState != null) {
-                Log.i("TrackingActivity: timer elapsed time = ", timer.getElapsedTime() + " s");
-
-                if (timerStopped) {
-                    timer.resume();
-                    timerStopped = false;
-                }
-
-                // Screen timer update
-                mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
-            }
+            // Screen timer update
+            mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
         } else {
             Command command = new Command() {
                 public void execute() {
@@ -197,6 +209,11 @@ public class TrackingActivity extends ActionBarActivity
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         if (!mResolvingError) {
@@ -207,7 +224,6 @@ public class TrackingActivity extends ActionBarActivity
     @Override
     protected void onPause() {
         super.onPause();
-        pauseLocationService();
     }
 
     private void pauseLocationService() {
@@ -216,6 +232,9 @@ public class TrackingActivity extends ActionBarActivity
 
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, locationIntent);
+        mRequestingLocationUpdates = false;
+
+        pauseStopWatch();
 
         Log.d("TRACKING", "removeLocationUpdates()");
     }
@@ -223,9 +242,6 @@ public class TrackingActivity extends ActionBarActivity
     @Override
     public void onResume() {
         super.onResume();
-        if (mGoogleApiClient.isConnected() && !mRequestingLocationUpdates) {
-            resumeLocationService();
-        }
     }
 
     private void resumeLocationService() {
@@ -234,6 +250,9 @@ public class TrackingActivity extends ActionBarActivity
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, BackgroundLocationService.mLocationRequest, locationIntent);
+        mRequestingLocationUpdates = true;
+
+        resumeStopWatch();
 
         Log.d("TRACKING", "requestLocationUpdates()");
     }
@@ -251,29 +270,11 @@ public class TrackingActivity extends ActionBarActivity
         savedInstanceState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
         savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
                 mRequestingLocationUpdates);
-
-
-        if(timer != null) {
-
-            // Stop timer
-            if(!timerStopped) {
-                timer.stop();
-                mHandler.sendEmptyMessage(MSG_STOP_TIMER);
-                timerStopped = true;
-            }
-
-            savedInstanceState.putString("currentTime", txtStopWatch.getText().toString());
-            savedInstanceState.putSerializable("timer", timer);
-            savedInstanceState.putBoolean("timerStopped", timerStopped);
-
-            Log.d("TrackingActivity: saved time = ", txtStopWatch.getText().toString());
-            Log.d("TrackingActivity: timer time = ", timer.getElapsedTimeSecs() + "");
-        }
-
     }
 
     private void updateValuesFromBundle(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+
             // Update the value of mRequestingLocationUpdates from the Bundle, and
             // make sure that the Start Updates and Stop Updates buttons are
             // correctly enabled or disabled.
@@ -287,10 +288,6 @@ public class TrackingActivity extends ActionBarActivity
                 mResolvingError = savedInstanceState.getBoolean(
                         STATE_RESOLVING_ERROR, false);
             }
-
-            timerStopped = savedInstanceState.getBoolean("timerStopped");
-            timer = (StopWatch) savedInstanceState.getSerializable("timer");
-            txtStopWatch.setText(savedInstanceState.getString("currentTime"));
         }
     }
 
@@ -326,16 +323,18 @@ public class TrackingActivity extends ActionBarActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnStopTracking:
-                if (!timerStopped) {
-                    timer.stop();
-                    mHandler.sendEmptyMessage(MSG_STOP_TIMER);
-                }
+                stopStopWatch(); // To save more exact stop time (otherwise timer is stopped when user enters route name and click save)
                 showSaveRouteDialog();
                 break;
             case R.id.btnPauseTimer:
                 pauseTimer();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void showSaveRouteDialog() {
@@ -358,8 +357,8 @@ public class TrackingActivity extends ActionBarActivity
         stopLocationService();
 
         if(save) {
-            boolean saveStatus = saveTrackingData(LocationReceiver.loggedLocations, routeName, timer.getElapsedTime(),
-                    new Date(timer.getStartTime()), new Date(timer.getStopTime()));
+            boolean saveStatus = saveTrackingData(LocationReceiver.loggedLocations, routeName, BackgroundLocationService.timer.getElapsedTime(),
+                    new Date(BackgroundLocationService.timer.getStartTime()), new Date(BackgroundLocationService.timer.getStopTime()));
 
             if(saveStatus) {
                 Toast.makeText(this, getResources().getString(R.string.route_saved), Toast.LENGTH_LONG).show();
@@ -403,22 +402,14 @@ public class TrackingActivity extends ActionBarActivity
     }
 
     public void pauseTimer() {
-
-        if (timer != null) {
-            if (btnPause.getTag() != null && btnPause.getTag().equals("Pause")) {
-                timer.resume();
-                btnPause.setTag("Start");
-                btnPause.setImageResource(R.drawable.button_pause);
-                resumeLocationService();
-            } else {
-                timer.pause();
-                btnPause.setTag("Pause");
-                btnPause.setImageResource(R.drawable.button_launcher_start_flat);
-                pauseLocationService();
-
-            }
+        if (btnPause.getTag() != null && btnPause.getTag().equals("Pause")) {
+            btnPause.setTag("Start");
+            btnPause.setImageResource(R.drawable.button_pause);
+            resumeLocationService();
         } else {
-            Log.d("TrackingActivity timer is null", "NULL TIMER WARNING");
+            btnPause.setTag("Pause");
+            btnPause.setImageResource(R.drawable.button_launcher_start_flat);
+            pauseLocationService();
         }
     }
 
@@ -432,11 +423,13 @@ public class TrackingActivity extends ActionBarActivity
     // Google API Client methods
     // ******
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
+        if(mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
 
     @Override
@@ -446,7 +439,6 @@ public class TrackingActivity extends ActionBarActivity
 
         if (mRequestingLocationUpdates) {
             startLocationService();
-            timer.start();
             mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
 
         }
@@ -455,11 +447,13 @@ public class TrackingActivity extends ActionBarActivity
     private void startLocationService() {
         Intent locationService = new Intent(this, BackgroundLocationService.class);
         startService(locationService);
+        mRequestingLocationUpdates = true;
     }
 
     private void stopLocationService() {
         Intent locationService = new Intent(this, BackgroundLocationService.class);
         stopService(locationService);
+        mRequestingLocationUpdates = false;
     }
 
 

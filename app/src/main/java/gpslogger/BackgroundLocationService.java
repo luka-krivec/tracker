@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -19,9 +20,11 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
 
 import luka.cyclingmaster.TrackingActivity;
 import utils.Constants;
+import utils.StopWatch;
 
 /**
  * BackgroundLocationService used for tracking user location in the background.
@@ -32,6 +35,7 @@ public class BackgroundLocationService extends Service {
     IBinder mBinder = new LocalBinder();
 
     public static LocationRequest mLocationRequest;
+    public static StopWatch timer;
 
     // Flag that indicates if a request is underway.
     private boolean mInProgress;
@@ -60,6 +64,8 @@ public class BackgroundLocationService extends Service {
         // Set the fastest update interval to 1 second
         mLocationRequest.setFastestInterval(Constants.FASTEST_INTERVAL);
 
+        timer = new StopWatch();
+
         servicesAvailable = servicesConnected();
     }
 
@@ -75,13 +81,14 @@ public class BackgroundLocationService extends Service {
     {
         super.onStartCommand(intent, flags, startId);
 
-        if(servicesAvailable && TrackingActivity.mGoogleApiClient.isConnected() && !mInProgress) {
+        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected() && !mInProgress) {
             startLocationUpdates();
             mInProgress = true;
+            // Toast.makeText(getApplicationContext(), "Logger service started!", Toast.LENGTH_SHORT).show();
             return START_STICKY;
         }
 
-        if(!TrackingActivity.mGoogleApiClient.isConnected() || !TrackingActivity.mGoogleApiClient.isConnecting() && !mInProgress)
+        if(TrackingActivity.mGoogleApiClient == null || !TrackingActivity.mGoogleApiClient.isConnected() || !TrackingActivity.mGoogleApiClient.isConnecting() && !mInProgress)
         {
             //appendLog(DateFormat.getDateTimeInstance().format(new Date()) + ": Started", Constants.LOG_FILE);
             Log.d("TRACKING", DateFormat.getDateTimeInstance().format(new Date()) + ": NOT CONNECTED !!!");
@@ -153,6 +160,8 @@ public class BackgroundLocationService extends Service {
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 TrackingActivity.mGoogleApiClient, mLocationRequest, locationIntent);
+
+        timer.start();
     }
 
     protected void stopLocationUpdates() {
@@ -163,6 +172,8 @@ public class BackgroundLocationService extends Service {
 
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 TrackingActivity.mGoogleApiClient, locationIntent);
+
+        timer.stop();
     }
 
 }
