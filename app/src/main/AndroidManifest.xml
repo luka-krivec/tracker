@@ -42,8 +42,6 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        <service android:name="gpslogger.GpsLoggerService" />
-
         <activity
             android:name=".ListRoutesActivity"
             android:label="@string/title_activity_list_routes" >
@@ -76,6 +74,11 @@
             <meta-data android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
+
+        <service android:name="gpslogger.BackgroundLocationService" />
+
+        <receiver android:name="gpslogger.LocationReceiver"></receiver>
+
     </application>
 
 </manifest>
