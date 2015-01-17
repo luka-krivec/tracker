@@ -142,9 +142,12 @@ public class BackgroundLocationService extends Service {
     public void onDestroy(){
         // Turn off the request flag
         mInProgress = false;
-        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null) {
+        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected()) {
             stopLocationUpdates();
         }
+
+        timer = null; // Destroy timer
+
         // Display the connection status
         // Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
         //appendLog(DateFormat.getDateTimeInstance().format(new Date()) + ": Stopped", Constants.LOG_FILE);
