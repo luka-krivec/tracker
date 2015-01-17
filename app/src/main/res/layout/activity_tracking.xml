@@ -39,7 +39,7 @@
                 android:background="@color/colorPrimary"
                 android:layout_width="1dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"/>
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_width="1dp"
                 android:layout_height="fill_parent"
                 android:background="@color/colorPrimary"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"/>
 
             <TextView
@@ -90,6 +90,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/txtLiveTrackingEnable"
+                android:text="@string/enable_live_tracking"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"/>
+
+            <CheckBox
+                android:id="@+id/chkEnableLiveTracking" />
         </TableRow>
 
     </TableLayout>

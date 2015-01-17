@@ -2,6 +2,8 @@ package utils;
 
 public final class Constants {
 
+    public static final String BACKEND_URL = "http://cyclingmaster-mobilebackend.rhcloud.com";
+
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
     // Update frequency in seconds

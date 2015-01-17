@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,12 +65,15 @@ public class TrackingActivity extends ActionBarActivity
     private TextView txtCurrentAvgSpeed;
     private ImageButton btnStopTracking;
     private ImageButton btnPause;
+    private CheckBox chkEnableLiveTracking;
 
     private File dirExternalStorageGpxStore;
 
     private int counterRefreshSpeedAndDistance; // to refresh speed and distance on REFRESH_SPEED_AND_DISTANCE seconds
 
     public static GoogleApiClient mGoogleApiClient;
+    public static boolean liveTracking = false;
+    public static int idRoute = 2;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -156,6 +160,9 @@ public class TrackingActivity extends ActionBarActivity
 
         btnStopTracking = (ImageButton) findViewById(R.id.btnStopTracking);
         btnStopTracking.setOnClickListener(this);
+
+        chkEnableLiveTracking = (CheckBox) findViewById(R.id.chkEnableLiveTracking);
+        chkEnableLiveTracking.setOnClickListener(this);
 
         updateValuesFromBundle(savedInstanceState);
 
@@ -328,6 +335,9 @@ public class TrackingActivity extends ActionBarActivity
                 break;
             case R.id.btnPauseTimer:
                 pauseTimer();
+                break;
+            case R.id.chkEnableLiveTracking:
+                liveTracking = chkEnableLiveTracking.isChecked();
                 break;
         }
     }

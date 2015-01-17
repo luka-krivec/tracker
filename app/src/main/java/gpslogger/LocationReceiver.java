@@ -13,6 +13,10 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import luka.cyclingmaster.TrackingActivity;
+import utils.TrackerUtils;
+import utils.WebUtils;
+
 public class LocationReceiver extends BroadcastReceiver {
 
     public static ArrayList<Location> loggedLocations = new ArrayList<>();
@@ -25,7 +29,6 @@ public class LocationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Location location = (Location) intent.getExtras().get(FusedLocationProviderApi.KEY_LOCATION_CHANGED);
         logLocation(location);
-
     }
 
     private void logLocation(Location loc) {
@@ -42,6 +45,10 @@ public class LocationReceiver extends BroadcastReceiver {
             lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
             loggedLatLng.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
+
+            if(TrackingActivity.liveTracking) {
+                TrackerUtils.insertPointInDatabase(TrackingActivity.idRoute, loc.getLatitude(), loc.getLongitude(), loc.getAltitude());
+            }
         }
     }
 }

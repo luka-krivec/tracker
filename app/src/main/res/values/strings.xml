@@ -60,6 +60,7 @@
     <string name="already_member">Že član?</string>
     <string name="email_taken">Email je že registriran</string>
     <string name="username_taken">Uporabniško ime je zasedeno</string>
+    <string name="enable_live_tracking">Sledenje v živo</string>
 
 
 </resources>
