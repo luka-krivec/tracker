@@ -68,7 +68,7 @@ public class SaveRouteDialogFragment extends DialogFragment {
                         mListener.onDialogSaveRoutePositiveClick(SaveRouteDialogFragment.this, routeName);
                     }
                 })
-                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.btn_discard, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SaveRouteDialogFragment.this.getDialog().cancel();
                         // Send the negative button event back to the host activity

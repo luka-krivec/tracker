@@ -81,6 +81,7 @@ public class TrackingActivity extends ActionBarActivity
     public static final String DIALOG_ERROR = "dialog_error";
     private static final String STATE_RESOLVING_ERROR = "resolving_error";
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "requesting_location_updates";
+    private static final String STATE_LIVE_TRACKING = "live_tracking";
 
     private boolean mRequestingLocationUpdates = true;
     private boolean mResolvingError = false;
@@ -277,6 +278,7 @@ public class TrackingActivity extends ActionBarActivity
         savedInstanceState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
         savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
                 mRequestingLocationUpdates);
+        savedInstanceState.putBoolean(STATE_LIVE_TRACKING, chkEnableLiveTracking.isChecked());
     }
 
     private void updateValuesFromBundle(Bundle savedInstanceState) {
@@ -294,6 +296,11 @@ public class TrackingActivity extends ActionBarActivity
             if (savedInstanceState.keySet().contains(STATE_RESOLVING_ERROR)) {
                 mResolvingError = savedInstanceState.getBoolean(
                         STATE_RESOLVING_ERROR, false);
+            }
+
+            if (savedInstanceState.keySet().contains(STATE_LIVE_TRACKING)) {
+                chkEnableLiveTracking.setChecked(savedInstanceState.getBoolean(
+                        STATE_LIVE_TRACKING, false));
             }
         }
     }
@@ -331,6 +338,7 @@ public class TrackingActivity extends ActionBarActivity
         switch (v.getId()) {
             case R.id.btnStopTracking:
                 stopStopWatch(); // To save more exact stop time (otherwise timer is stopped when user enters route name and click save)
+                btnPause.setEnabled(false);
                 showSaveRouteDialog();
                 break;
             case R.id.btnPauseTimer:
@@ -367,14 +375,21 @@ public class TrackingActivity extends ActionBarActivity
         stopLocationService();
 
         if(save) {
-            boolean saveStatus = saveTrackingData(LocationReceiver.loggedLocations, routeName, BackgroundLocationService.timer.getElapsedTime(),
-                    new Date(BackgroundLocationService.timer.getStartTime()), new Date(BackgroundLocationService.timer.getStopTime()));
-
-            if(saveStatus) {
-                Toast.makeText(this, getResources().getString(R.string.route_saved), Toast.LENGTH_LONG).show();
+            if(routeName.isEmpty()) {
+                Toast.makeText(this, getResources().getString(R.string.route_name_empty), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, getResources().getString(R.string.route_save_failed), Toast.LENGTH_LONG).show();
+                boolean saveStatus = saveTrackingData(LocationReceiver.loggedLocations, routeName, BackgroundLocationService.timer.getElapsedTime(),
+                        new Date(BackgroundLocationService.timer.getStartTime()), new Date(BackgroundLocationService.timer.getStopTime()));
+
+                if(saveStatus) {
+                    Toast.makeText(this, getResources().getString(R.string.route_saved), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.route_save_failed), Toast.LENGTH_LONG).show();
+                }
             }
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.route_discared), Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 

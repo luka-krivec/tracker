@@ -26,9 +26,11 @@
     <string name="btn_upload">Naloži</string>
     <string name="btn_share">Deli</string>
     <string name="btn_login">Prijava</string>
+    <string name="btn_discard">Zavrzi</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
+    <string name="route_discared">Vožnja zavržena</string>
     <string name="route_save_failed">Prišlo je do napake pri shranjevanju. Preverite ali imate dovolj prostora na pomnilniški kartici</string>
     <string name="route_distance">Razdalja</string>
     <string name="route_avg_speed">Povprečna hitrost</string>
@@ -61,6 +63,7 @@
     <string name="email_taken">Email je že registriran</string>
     <string name="username_taken">Uporabniško ime je zasedeno</string>
     <string name="enable_live_tracking">Sledenje v živo</string>
+    <string name="route_name_empty">Ime vožnje ne sme biti prazno</string>
 
 
 </resources>
