@@ -58,7 +58,7 @@ public class BackgroundLocationService extends Service {
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create();
         // Use high accuracy
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         // Set the update interval to 5 seconds
         mLocationRequest.setInterval(Constants.UPDATE_INTERVAL);
         // Set the fastest update interval to 1 second
@@ -80,11 +80,12 @@ public class BackgroundLocationService extends Service {
     public int onStartCommand (Intent intent, int flags, int startId)
     {
         super.onStartCommand(intent, flags, startId);
+        Log.d("TRACKER", "onStartCommand");
 
         if(servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected() && !mInProgress) {
             startLocationUpdates();
             mInProgress = true;
-            // Toast.makeText(getApplicationContext(), "Logger service started!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Logger service started!", Toast.LENGTH_SHORT).show();
             return START_STICKY;
         }
 
@@ -142,14 +143,14 @@ public class BackgroundLocationService extends Service {
     public void onDestroy(){
         // Turn off the request flag
         mInProgress = false;
-        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected()) {
+        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null) {
             stopLocationUpdates();
         }
 
         timer = null; // Destroy timer
 
         // Display the connection status
-        // Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
         //appendLog(DateFormat.getDateTimeInstance().format(new Date()) + ": Stopped", Constants.LOG_FILE);
         Log.d("TRACKING", DateFormat.getDateTimeInstance().format(new Date()) + ": Stopped");
         super.onDestroy();
@@ -157,6 +158,7 @@ public class BackgroundLocationService extends Service {
 
     protected void startLocationUpdates() {
         Log.d("TRACKING", "startLocationUpdates()");
+        Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": startLocationUpdates", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -168,15 +170,16 @@ public class BackgroundLocationService extends Service {
     }
 
     protected void stopLocationUpdates() {
+        timer.stop();
+
         Log.d("TRACKING", "stopLocationUpdates()");
+        Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": stopLocationUpdates", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 TrackingActivity.mGoogleApiClient, locationIntent);
-
-        timer.stop();
     }
 
 }

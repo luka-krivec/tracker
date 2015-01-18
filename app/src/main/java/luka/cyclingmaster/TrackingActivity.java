@@ -459,6 +459,7 @@ public class TrackingActivity extends ActionBarActivity
     public void onConnected(Bundle bundle) {
         // Connected to Google Play services!
         Log.d("Google Play Services", "CONNECTED");
+        Toast.makeText(this, "Google Play Services connected!", Toast.LENGTH_SHORT).show();
 
         if (mRequestingLocationUpdates) {
             startLocationService();
@@ -468,12 +469,16 @@ public class TrackingActivity extends ActionBarActivity
     }
 
     private void startLocationService() {
+        Log.d("Tracker", "startLocationService()");
+        Toast.makeText(this, "startLocationService()", Toast.LENGTH_SHORT).show();
         Intent locationService = new Intent(this, BackgroundLocationService.class);
         startService(locationService);
         mRequestingLocationUpdates = true;
     }
 
     private void stopLocationService() {
+        Log.d("Tracker", "stopLocationService()");
+        Toast.makeText(this, "stopLocationService()", Toast.LENGTH_SHORT).show();
         Intent locationService = new Intent(this, BackgroundLocationService.class);
         stopService(locationService);
         mRequestingLocationUpdates = false;
