@@ -157,6 +157,8 @@ public class BackgroundLocationService extends Service {
     }
 
     protected void startLocationUpdates() {
+        timer.start();
+
         Log.d("TRACKING", "startLocationUpdates()");
         Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": startLocationUpdates", Toast.LENGTH_SHORT).show();
 
@@ -165,8 +167,6 @@ public class BackgroundLocationService extends Service {
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 TrackingActivity.mGoogleApiClient, mLocationRequest, locationIntent);
-
-        timer.start();
     }
 
     protected void stopLocationUpdates() {
