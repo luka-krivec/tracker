@@ -3,15 +3,23 @@ package utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 public class TrackerUtils {
 
-    public static void insertPointInDatabase(int idRoute, double lat, double lng, double altitude, final Context ctx) {
+    public static void insertPointInDatabase(int idRoute, Location loc, final Context ctx) {
         final String url = Constants.BACKEND_URL + "/tracker";
-        final String paramsInsert = "idRoute=" + idRoute + "&lat=" + lat + "&lng=" + lng + "&altitude=" + altitude;
+        final String paramsInsert =
+                  "idRoute=" + idRoute
+                + "&lat=" + loc.getLatitude()
+                + "&lng=" + loc.getLongitude()
+                + (loc.hasAltitude() ? "&altitude=" + loc.getAltitude() : "")
+                + (loc.hasSpeed() ? "&speed=" + loc.getSpeed() : "")
+                + (loc.hasBearing() ? "&bearing=" + loc.getBearing() : "")
+                + (loc.hasAccuracy() ? "&accuracy=" + loc.getAccuracy() : "");
 
         new AsyncTask<String, Void, Intent>() {
 

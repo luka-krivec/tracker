@@ -55,7 +55,7 @@ public class LocationReceiver extends BroadcastReceiver {
             loggedLatLng.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
 
             if(TrackingActivity.liveTracking) {
-                TrackerUtils.insertPointInDatabase(TrackingActivity.idRoute, loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), ctx);
+                TrackerUtils.insertPointInDatabase(TrackingActivity.idRoute, loc, ctx);
             }
         }
     }
