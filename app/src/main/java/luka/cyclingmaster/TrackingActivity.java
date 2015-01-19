@@ -389,8 +389,9 @@ public class TrackingActivity extends ActionBarActivity
             }
         } else {
             Toast.makeText(this, getResources().getString(R.string.route_discared), Toast.LENGTH_LONG).show();
-            finish();
         }
+
+        finish(); // Finish activity
     }
 
     public boolean saveTrackingData(ArrayList<Location> locations, String fileName, long timeDiff, Date dateStart, Date dateEnd) {
