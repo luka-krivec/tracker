@@ -1,4 +1,4 @@
-cycling-master
+Live Sport Tracker
 ==============
 
-Android application for cyclists
+Android application for live tracking.
