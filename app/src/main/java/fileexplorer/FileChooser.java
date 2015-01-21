@@ -8,13 +8,12 @@ import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import luka.cyclingmaster.R;
+import si.krivec.tracker.R;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,7 +29,7 @@ public class FileChooser extends ListActivity {
         currentDir = Environment.getExternalStorageDirectory(); // /sdcard/
 
         if(getIntent().getExtras().getString("currentDir") != null)
-            currentDir = new File(getIntent().getExtras().getString("currentDir").toString());
+            currentDir = new File(getIntent().getExtras().getString("currentDir"));
 
         fill(currentDir);
     }
@@ -40,18 +39,17 @@ public class FileChooser extends ListActivity {
         File[] dirs = f.listFiles();
         this.setTitle(getResources().getString(R.string.current_directory) + ": " + f.getName());
 
-        List<Item>dir = new ArrayList<Item>();
-        List<Item>fls = new ArrayList<Item>();
+        List<Item>dir = new ArrayList<>();
+        List<Item>fls = new ArrayList<>();
         try{
             for(File ff: dirs)
             {
                 Date lastModDate = new Date(ff.lastModified());
-                DateFormat formater = DateFormat.getDateTimeInstance();
                 String date_modify_formatted = new SimpleDateFormat("d.M.yyyy HH:mm:ss").format(lastModDate);
 
                 if(ff.isDirectory()){
                     File[] fbuf = ff.listFiles();
-                    int buf = 0;
+                    int buf;
 
                     if(fbuf != null){
                         buf = fbuf.length;

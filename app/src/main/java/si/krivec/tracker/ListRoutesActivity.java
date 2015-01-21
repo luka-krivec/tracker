@@ -1,4 +1,4 @@
-package luka.cyclingmaster;
+package si.krivec.tracker;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -77,7 +77,7 @@ public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDi
     }
 
     private CyclingRoute[] getSavedRoutes() {
-        ArrayList<CyclingRoute> listRoutes = new ArrayList<CyclingRoute>();
+        ArrayList<CyclingRoute> listRoutes = new ArrayList<>();
 
         File dirExternalStorageRoot = getExternalFilesDir(null);
         File dirExternalStorageGpxStore = new File(dirExternalStorageRoot.getAbsolutePath() + "/gpx/");
@@ -104,7 +104,7 @@ public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDi
                             // Preberemo podatke iz datoteke
                             try {
                                 BufferedReader reader = new BufferedReader(new FileReader(fileRoute));
-                                String line = null;
+                                String line;
                                 String[] podatki;
                                 Date date;
                                 CyclingRoute route = new CyclingRoute();
@@ -113,34 +113,39 @@ public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDi
                                     podatki = line.split(": ");
 
                                     if(podatki.length == 2) {
-                                        if(podatki[0].equals("Name")) {
-                                            route = new CyclingRoute();
-                                            route.setName(podatki[1].trim());
-                                            route.setFirst(false);
-                                            if(i == 0)
-                                                route.setFirst(true);
-                                        } else if(podatki[0].equals("Distance")) {
-                                            route.setDistance(Double.parseDouble(podatki[1].trim().replace(',', '.')));
-                                        } else if(podatki[0].equals("Time")) {
-                                            route.setTime(DateUtilities.timeStringToMillis(podatki[1].trim()));
-                                        } else if(podatki[0].equals("Start time")) {
-                                            date = DateUtilities.getDate(podatki[1].trim());
-                                            if(date != null)
-                                                route.setStartTime(date);
-                                        }
-                                        else if(podatki[0].equals("End time")) {
-                                            date = DateUtilities.getDate(podatki[1].trim());
-                                            if(date != null)
-                                                route.setEndTime(date);
-                                        }
-                                        else if(podatki[0].equals("Max speed")) {
-                                            route.setMaxSpeed(Double.parseDouble(podatki[1].trim().replace(',', '.')));
-                                        }
-                                        else if(podatki[0].equals("Average speed")) {
-                                            route.setAverageSpeed(Double.parseDouble(podatki[1].trim().replace(',', '.')));
-                                        }
-                                        else if(podatki[0].equals("Altitude")) {
-                                            route.setAltitude(Double.parseDouble(podatki[1].trim()));
+                                        switch (podatki[0]) {
+                                            case "Name":
+                                                route = new CyclingRoute();
+                                                route.setName(podatki[1].trim());
+                                                route.setFirst(false);
+                                                if (i == 0)
+                                                    route.setFirst(true);
+                                                break;
+                                            case "Distance":
+                                                route.setDistance(Double.parseDouble(podatki[1].trim().replace(',', '.')));
+                                                break;
+                                            case "Time":
+                                                route.setTime(DateUtilities.timeStringToMillis(podatki[1].trim()));
+                                                break;
+                                            case "Start time":
+                                                date = DateUtilities.getDate(podatki[1].trim());
+                                                if (date != null)
+                                                    route.setStartTime(date);
+                                                break;
+                                            case "End time":
+                                                date = DateUtilities.getDate(podatki[1].trim());
+                                                if (date != null)
+                                                    route.setEndTime(date);
+                                                break;
+                                            case "Max speed":
+                                                route.setMaxSpeed(Double.parseDouble(podatki[1].trim().replace(',', '.')));
+                                                break;
+                                            case "Average speed":
+                                                route.setAverageSpeed(Double.parseDouble(podatki[1].trim().replace(',', '.')));
+                                                break;
+                                            case "Altitude":
+                                                route.setAltitude(Double.parseDouble(podatki[1].trim()));
+                                                break;
                                         }
                                     }
                                 }

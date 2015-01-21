@@ -2,7 +2,7 @@ package fileexplorer;
 
 import java.util.List;
 
-import luka.cyclingmaster.R;
+import si.krivec.tracker.R;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import luka.cyclingmaster.R;
+import si.krivec.tracker.R;
 
 
 public class DialogUtils {

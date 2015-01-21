@@ -7,11 +7,9 @@ import android.support.v4.app.DialogFragment;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
-import luka.cyclingmaster.TrackingActivity;
+import si.krivec.tracker.TrackingActivity;
 
-/**
- * Created by Luka on 12.1.2015.
- */
+
 public class ErrorConnectingDialogFragment extends DialogFragment{
 
     public ErrorConnectingDialogFragment() { }

@@ -14,9 +14,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import luka.cyclingmaster.TrackingActivity;
+import si.krivec.tracker.TrackingActivity;
 import utils.TrackerUtils;
-import utils.WebUtils;
 
 public class LocationReceiver extends BroadcastReceiver {
 
