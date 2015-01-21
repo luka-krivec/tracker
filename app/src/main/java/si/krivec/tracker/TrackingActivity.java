@@ -101,14 +101,14 @@ public class TrackingActivity extends ActionBarActivity
     private void stopStopWatch() {
         if(BackgroundLocationService.timer != null) {
             BackgroundLocationService.timer.stop();
-            mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
+            mHandler.removeMessages(MSG_UPDATE_TIMER); // No more updates.
         }
     }
 
     private void pauseStopWatch() {
         if(BackgroundLocationService.timer != null) {
             BackgroundLocationService.timer.pause();
-            mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
+            mHandler.removeMessages(MSG_UPDATE_TIMER); // No more updates.
         }
     }
 
