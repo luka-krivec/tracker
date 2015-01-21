@@ -2,27 +2,17 @@ package adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.io.File;
-import java.util.ArrayList;
-
 import gpslogger.CyclingRoute;
-import luka.cyclingmaster.MapActivity;
-import luka.cyclingmaster.R;
+import si.krivec.tracker.MapActivity;
+import si.krivec.tracker.R;
 import utils.DateUtilities;
-import utils.GpxParser;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder> {
 

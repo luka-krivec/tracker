@@ -20,9 +20,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
 
-import luka.cyclingmaster.TrackingActivity;
+import si.krivec.tracker.TrackingActivity;
 import utils.Constants;
 import utils.StopWatch;
 

@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="luka.cyclingmaster.ListRoutesActivity">
+    tools:context="si.krivec.tracker.ListRoutesActivity">
     <item android:id="@+id/action_importGpx"
         android:title="@string/action_importGpx"
         android:icon="@drawable/ic_action_file_upload"

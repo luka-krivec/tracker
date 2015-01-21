@@ -1,7 +1,6 @@
-package luka.cyclingmaster;
+package si.krivec.tracker;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +8,6 @@ import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -61,8 +59,8 @@ public class MapActivity extends FragmentActivity {
 
             for(int i=0; i<arrayLatLng.length; i++) {
                 if(i == 0)
-                    startPosition = (LatLng) arrayLatLng[i];
-                routeDriven.add((LatLng) arrayLatLng[i]);
+                    startPosition = arrayLatLng[i];
+                routeDriven.add(arrayLatLng[i]);
             }
 
             // Set marker on start of the route

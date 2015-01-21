@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import luka.cyclingmaster.R;
+import si.krivec.tracker.R;
 
 
 public class SaveRouteDialogFragment extends DialogFragment {

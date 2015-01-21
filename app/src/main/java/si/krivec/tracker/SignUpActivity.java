@@ -1,7 +1,6 @@
-package luka.cyclingmaster;
+package si.krivec.tracker;
 
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,9 +17,9 @@ import android.widget.Toast;
 import authentication.AccountGeneral;
 
 import static authentication.AccountGeneral.sServerAuthenticate;
-import static luka.cyclingmaster.AuthenticatorActivity.ARG_ACCOUNT_TYPE;
-import static luka.cyclingmaster.AuthenticatorActivity.KEY_ERROR_MESSAGE;
-import static luka.cyclingmaster.AuthenticatorActivity.PARAM_USER_PASS;
+import static si.krivec.tracker.AuthenticatorActivity.ARG_ACCOUNT_TYPE;
+import static si.krivec.tracker.AuthenticatorActivity.KEY_ERROR_MESSAGE;
+import static si.krivec.tracker.AuthenticatorActivity.PARAM_USER_PASS;
 
 
 
@@ -103,7 +102,7 @@ public class SignUpActivity extends ActionBarActivity implements View.OnClickLis
 
                 Log.d("CyclingMaster", TAG + "> Started authenticating");
 
-                String authtoken = null;
+                String authtoken;
                 Bundle data = new Bundle();
                 try {
                     authtoken = sServerAuthenticate.userSignUp(name, accountName, accountPassword, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);

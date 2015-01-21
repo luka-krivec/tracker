@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import luka.cyclingmaster.AuthenticatorActivity;
+import si.krivec.tracker.AuthenticatorActivity;
 
 import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
 import static authentication.AccountGeneral.*;

@@ -1,10 +1,9 @@
-package luka.cyclingmaster;
+package si.krivec.tracker;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.location.Location;
 import android.location.LocationManager;
@@ -26,15 +25,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.w3c.dom.Document;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,7 +42,6 @@ import utils.AndroidUtils;
 import utils.Command;
 import utils.DateUtilities;
 import utils.DialogUtils;
-import utils.StopWatch;
 import utils.Utils;
 
 
@@ -423,8 +417,7 @@ public class TrackingActivity extends ActionBarActivity
             Log.d("Service completed", "ERROR !!! " + GpxWriter.GPX_DATA_ERROR);
         }
 
-        boolean saveStatus = gpxSaveSuccess && gpxDataSaveSuccess;
-        return saveStatus;
+        return gpxSaveSuccess && gpxDataSaveSuccess;
     }
 
     public void pauseTimer() {

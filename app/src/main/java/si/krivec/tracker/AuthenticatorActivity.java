@@ -1,4 +1,4 @@
-package luka.cyclingmaster;
+package si.krivec.tracker;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
@@ -130,7 +130,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity implemen
 
                 Log.d("CyclingMaster", TAG + "> Started authenticating");
 
-                String authtoken = null;
+                String authtoken;
                 Bundle data = new Bundle();
                 try {
                     authtoken = sServerAuthenticate.userSignIn(userName, userPass, mAuthTokenType);

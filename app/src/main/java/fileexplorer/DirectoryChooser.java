@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import luka.cyclingmaster.R;
+import si.krivec.tracker.R;
 
 public class DirectoryChooser extends ListActivity {
 
@@ -28,7 +28,7 @@ public class DirectoryChooser extends ListActivity {
         currentDir = Environment.getExternalStorageDirectory(); // /sdcard/
 
         if(getIntent().getExtras().getString("currentDir") != null)
-            currentDir = new File(getIntent().getExtras().getString("currentDir").toString());
+            currentDir = new File(getIntent().getExtras().getString("currentDir"));
 
         fill(currentDir);
     }
@@ -38,8 +38,9 @@ public class DirectoryChooser extends ListActivity {
         File[] dirs = f.listFiles();
         this.setTitle(getResources().getString(R.string.current_directory) + ": " + f.getName());
 
-        List<Item>dir = new ArrayList<Item>();
-        List<Item>fls = new ArrayList<Item>();
+        List<Item>dir = new ArrayList<>();
+        List<Item>fls = new ArrayList<>();
+
         try{
             for(File ff: dirs)
             {
@@ -48,7 +49,7 @@ public class DirectoryChooser extends ListActivity {
 
                 if(ff.isDirectory()){
                     File[] fbuf = ff.listFiles();
-                    int buf = 0;
+                    int buf;
 
                     if(fbuf != null){
                         buf = fbuf.length;
