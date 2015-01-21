@@ -134,8 +134,8 @@ public class TrackingActivity extends ActionBarActivity
                 txtCurrentAvgSpeed.setText(String.format("%.1f", currentAvgSpeed));
                 counterRefreshSpeedAndDistance = 0;
 
-                Log.d("TRACKER", "distance: " + currentDistance);
-                Log.d("TRACKER", "time: " + elapsed);
+                Log.d("TRACKER", "Distance: " + currentDistance);
+                Log.d("TRACKER", "Time: " + elapsed);
                 Log.d("TRACKER", "Average speed: " + currentAvgSpeed);
             }
         }
