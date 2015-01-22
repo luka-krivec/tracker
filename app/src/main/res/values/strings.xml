@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Application settings -->
-    <string name="app_name">Kolesar</string>
+    <string name="app_name">Live Sport Tracker</string>
 
     <!-- Menu actions names -->
     <string name="action_settings">Nastavitve</string>
@@ -16,6 +16,7 @@
     <string name="title_activity_map">Zemljevid</string>
     <string name="title_activity_plans">Plani</string>
     <string name="title_activity_sign_up">Registracija</string>
+    <string name="title_activity_login">Prijava</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
@@ -64,6 +65,11 @@
     <string name="username_taken">Uporabniško ime je zasedeno</string>
     <string name="enable_live_tracking">Sledenje v živo</string>
     <string name="route_name_empty">Ime vožnje ne sme biti prazno</string>
+    <string name="login_button_content_description">Prijava z Amazonovim računom</string>
+    <string name="default_login_message">Dobrodošli!\nČe je to vaša prva prijava boste morali vnesti prijavne podatke.</string>
+    <string name="logout">Odjava</string>
+    <string name="return_to_app">Nazaj na aplikacijo</string>
+
 
 
 </resources>
