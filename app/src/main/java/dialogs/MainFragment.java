@@ -110,6 +110,8 @@ public class MainFragment extends Fragment {
             Map<String, String> logins = new HashMap<String, String>();
             logins.put("graph.facebook.com", Session.getActiveSession().getAccessToken());
             credentialsProvider.withLogins(logins);
+
+            //Log.d("LogTag", "my ID is " + credentialsProvider.getIdentityId());
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
