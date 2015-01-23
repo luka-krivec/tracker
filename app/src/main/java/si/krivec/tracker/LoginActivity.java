@@ -1,5 +1,6 @@
 package si.krivec.tracker;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -22,10 +23,15 @@ import com.amazon.identity.auth.device.authorization.api.AuthorizationListener;
 import com.amazon.identity.auth.device.authorization.api.AuthzConstants;
 import com.amazon.identity.auth.device.shared.APIListener;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+
+import com.facebook.Session;
+
 import si.krivec.tracker.R;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends FragmentActivity {
 
     private static final String[] APP_SCOPES= {"profile"};
     private static final String TAG = LoginActivity.class.getName();
@@ -42,6 +48,12 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
+                this.getApplicationContext(),    // get the context for the current activity
+                "COGNITO_IDENTITY_POOL",    /* Identity Pool ID */
+                Regions.US_EAST_1           /* Region */
+        );
 
         try
         {
@@ -251,8 +263,8 @@ public class LoginActivity extends ActionBarActivity {
              */
             @Override
             public void onSuccess(Bundle response) {
-                final String authzToken = response.getString(AuthzConstants.BUNDLE_KEY.TOKEN.val);
-                mIsLoggedIn = !TextUtils.isEmpty(authzToken);
+                final String authToken = response.getString(AuthzConstants.BUNDLE_KEY.TOKEN.val);
+                mIsLoggedIn = !TextUtils.isEmpty(authToken);
                 runOnUiThread(new Runnable() {
 
                     @Override

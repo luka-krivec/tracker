@@ -3,6 +3,7 @@
 
     <!-- Application settings -->
     <string name="app_name">Live Sport Tracker</string>
+    <string name="app_id">772751879478055</string>
 
     <!-- Menu actions names -->
     <string name="action_settings">Nastavitve</string>
@@ -17,6 +18,7 @@
     <string name="title_activity_plans">Plani</string>
     <string name="title_activity_sign_up">Registracija</string>
     <string name="title_activity_login">Prijava</string>
+    <string name="title_activity_authenticator">Avtentikacija</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
@@ -54,7 +56,6 @@
     <string name="error_settings_params">Napaka pri nastavljanju parametrov</string>
     <string name="my_plans">Moji plani</string>
     <string name="list_plans">Seznam planov</string>
-    <string name="title_activity_authenticator">AuthenticatorActivity</string>
     <string name="email">Email naslov</string>
     <string name="password">Geslo</string>
     <string name="new_user">Nov uporabnik?</string>
@@ -66,10 +67,9 @@
     <string name="enable_live_tracking">Sledenje v živo</string>
     <string name="route_name_empty">Ime vožnje ne sme biti prazno</string>
     <string name="login_button_content_description">Prijava z Amazonovim računom</string>
-    <string name="default_login_message">Dobrodošli!\nČe je to vaša prva prijava boste morali vnesti prijavne podatke.</string>
+    <string name="default_login_message">Dobrodošli!\nČe je to vaša prva prijava, boste morali vnesti prijavne podatke.</string>
     <string name="logout">Odjava</string>
     <string name="return_to_app">Nazaj na aplikacijo</string>
-
-
+    <string name="title_activity_login_facebook">LoginFacebookActivity</string>
 
 </resources>
