@@ -14,12 +14,19 @@ import com.facebook.Session;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import si.krivec.tracker.R;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
     private UiLifecycleHelper uiHelper;
+    private CognitoCachingCredentialsProvider credentialsProvider;
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
@@ -33,6 +40,13 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);
+
+        // Amazon Cognito
+        credentialsProvider = new CognitoCachingCredentialsProvider(
+                getActivity().getApplicationContext(),    // get the context for the current activity
+                "COGNITO_IDENTITY_POOL",    /* Identity Pool ID */
+                Regions.US_EAST_1           /* Region */
+        );
     }
 
     @Override
@@ -83,6 +97,7 @@ public class MainFragment extends Fragment {
 
         LoginButton authButton = (LoginButton) view.findViewById(R.id.btnFacebookLogin);
         authButton.setFragment(this);
+        //authButton.setReadPermissions(Arrays.asList("user_likes", "user_status"));
 
         return view;
     }
@@ -90,6 +105,11 @@ public class MainFragment extends Fragment {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
+
+            //  Add the session token to the Amazon Cognito credentials provider
+            Map<String, String> logins = new HashMap<String, String>();
+            logins.put("graph.facebook.com", Session.getActiveSession().getAccessToken());
+            credentialsProvider.withLogins(logins);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
