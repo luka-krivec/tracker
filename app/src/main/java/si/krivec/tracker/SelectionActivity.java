@@ -1,6 +1,8 @@
 package si.krivec.tracker;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,10 +12,17 @@ import android.widget.ImageButton;
 
 import com.facebook.Session;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import utils.Constants;
+import utils.WebUtils;
+
 
 public class SelectionActivity extends ActionBarActivity implements View.OnClickListener {
 
     private static final String TAG = "SelectionActivity";
+    private final String RESPONSE_OK = "OK";
 
     private ImageButton btnLauncherStart;
     private ImageButton btnLauncherActivities;
@@ -29,7 +38,6 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
         btnLauncherActivities = (ImageButton) findViewById(R.id.btnLauncherActivities);
         btnLauncherActivities.setOnClickListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

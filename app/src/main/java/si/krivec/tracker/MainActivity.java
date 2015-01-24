@@ -1,21 +1,32 @@
 package si.krivec.tracker;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import utils.Constants;
+import utils.WebUtils;
 
 
 public class MainActivity extends FragmentActivity {
@@ -24,6 +35,12 @@ public class MainActivity extends FragmentActivity {
     private static final int SELECTION = 1;
     private static final int SETTINGS = 2;
     private static final int FRAGMENT_COUNT = SETTINGS  +1;
+
+    private String userFbId;
+    private String userName;
+    private String userBirthday;
+
+    private final String RESPONSE_OK = "OK";
 
     private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 
@@ -109,6 +126,11 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+        if (session != null && session.isOpened()) {
+            // Get the user's data.
+            makeMeRequest(session);
+        }
+
         // Only make changes if the activity is visible
         if (isResumed) {
             FragmentManager manager = getSupportFragmentManager();
@@ -178,5 +200,63 @@ public class MainActivity extends FragmentActivity {
             transaction.addToBackStack(null);
         }
         transaction.commit();
+    }
+
+    private void makeMeRequest(final Session session) {
+        // Make an API call to get user data and define a
+        // new callback to handle the response.
+        Request request = Request.newMeRequest(session,
+                new Request.GraphUserCallback() {
+                    @Override
+                    public void onCompleted(GraphUser user, Response response) {
+                        // If the response is successful
+                        if (session == Session.getActiveSession()) {
+                            if (user != null) {
+                                userName = user.getFirstName() + (user.getMiddleName() != null ? user.getMiddleName() + " " : " ") +  user.getLastName();
+                                userFbId = user.getId();
+                                userBirthday = user.getBirthday();
+                                userSignUp();
+                            }
+                        }
+                        if (response.getError() != null) {
+                            // Handle errors, will do so later.
+                        }
+                    }
+                });
+        request.executeAsync();
+    }
+
+    private void userSignUp() {
+        new AsyncTask<String, Void, Intent>() {
+
+            @Override
+            protected Intent doInBackground(String... params) {
+                if (userFbId != null && userName != null) {
+                    String parameters = "userFbSignUp=true"
+                            + "&username=" + userName
+                            + "&idFacebook=" + userFbId
+                            + "&birthday=" + userBirthday;
+
+                    String response = WebUtils.executePost(Constants.BACKEND_URL + "/users", parameters);
+
+                    if(response != null) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+
+                            if (jsonResponse.getBoolean("success")) {
+                                Log.d("MainActivity", "SUCCESS: " + jsonResponse.toString());
+                            } else {
+                                Log.d("MainActivity", "WARNING: " + jsonResponse.toString());
+                            }
+                        } catch (JSONException jex) {
+                            Log.d("MainActivity", "ERROR: " + jex.getMessage());
+                        }
+                    }
+                }
+
+
+                return null;
+            }
+        }.execute();
     }
 }

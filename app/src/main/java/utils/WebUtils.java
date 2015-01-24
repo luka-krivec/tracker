@@ -1,6 +1,8 @@
 package utils;
 
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -46,11 +48,13 @@ public class WebUtils {
                 response.append(line);
             }
             rd.close();
+            Log.d("WebUtils post response", response.toString());
             return response.toString();
 
         } catch (Exception e) {
 
             e.printStackTrace();
+            Log.d("WebUtils post", e.getMessage());
             return null;
 
         } finally {

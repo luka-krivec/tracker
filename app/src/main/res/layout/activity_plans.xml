@@ -26,21 +26,25 @@
             android:text="@string/my_plans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/editMyPlans"
-            android:layout_width="180dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/txtMyPlans"/>
+            android:layout_below="@id/txtMyPlans"
+            android:singleLine="false"
+            android:lines="5"/>
 
         <Button
             android:id="@+id/btnMyPlansShare"
             android:text="@string/btn_share"
             android:textColor="@color/colorPrimary"
-            android:layout_toRightOf="@id/editMyPlans"
+            android:layout_below="@id/editMyPlans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
