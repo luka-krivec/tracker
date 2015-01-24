@@ -6,28 +6,19 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+    <fragment android:name="dialogs.SelectionFragment"
+        android:id="@+id/selectionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <TableRow>
+    <fragment android:name="dialogs.SplashFragment"
+        android:id="@+id/splashFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-            <ImageButton
-                android:id="@+id/btnLauncherStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="35dp"
-                android:background="@drawable/button_launcher_start"/>
-
-            <ImageButton
-                android:id="@+id/btnLauncherActivities"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/btnLauncherStart"
-                android:background="@drawable/button_launcher_activities"/>
-        </TableRow>
-    </TableLayout>
-
+    <fragment android:name="com.facebook.widget.UserSettingsFragment"
+        android:id="@+id/userSettingsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
