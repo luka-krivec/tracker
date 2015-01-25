@@ -37,7 +37,7 @@ public class DrawableImage extends BitmapDrawable {
                 float dx = scale * src.width() / 2;
                 dst.inset(-dx, 0);
             }
-            mMatrix.setRectToRect(src, dst, Matrix.ScaleToFit.FILL);
+            mMatrix.setRectToRect(src, dst, Matrix.ScaleToFit.CENTER);
         }
     }
 
