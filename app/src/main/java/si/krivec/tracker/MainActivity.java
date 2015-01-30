@@ -36,7 +36,7 @@ public class MainActivity extends FragmentActivity {
     private static final int SETTINGS = 2;
     private static final int FRAGMENT_COUNT = SETTINGS  +1;
 
-    private String userFbId;
+    public static String USER_FB_ID;
     private String userName;
     private String userBirthday;
 
@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity {
                         if (session == Session.getActiveSession()) {
                             if (user != null) {
                                 userName = user.getFirstName() + (user.getMiddleName() != null ? user.getMiddleName() + " " : " ") +  user.getLastName();
-                                userFbId = user.getId();
+                                USER_FB_ID = user.getId();
                                 userBirthday = user.getBirthday();
                                 userSignUp();
                             }
@@ -231,10 +231,10 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             protected Intent doInBackground(String... params) {
-                if (userFbId != null && userName != null) {
+                if (USER_FB_ID != null && userName != null) {
                     String parameters = "userFbSignUp=true"
                             + "&username=" + userName
-                            + "&idFacebook=" + userFbId
+                            + "&idFacebook=" + USER_FB_ID
                             + "&birthday=" + userBirthday;
 
                     String response = WebUtils.executePost(Constants.BACKEND_URL + "/users", parameters);

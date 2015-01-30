@@ -17,6 +17,9 @@ public final class Constants {
     // Stores the connect / disconnect data in a text file
     public static final String LOG_FILE = "sdcard/log.txt";
 
+    // Android Shared Preferences name
+    public static final String preferencesTracker = "TrackerPreferences";
+
     /**
      * Suppress default constructor for noninstantiability
      */

@@ -30,6 +30,7 @@ import com.google.android.gms.location.LocationServices;
 import org.w3c.dom.Document;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,6 +43,7 @@ import utils.AndroidUtils;
 import utils.Command;
 import utils.DateUtilities;
 import utils.DialogUtils;
+import utils.RoutesUtils;
 import utils.Utils;
 
 
@@ -67,7 +69,9 @@ public class TrackingActivity extends ActionBarActivity
 
     public static GoogleApiClient mGoogleApiClient;
     public static boolean liveTracking = false;
-    public static int idRoute = 2;
+
+    // Id route for further update route
+    public static int idRoute = 0;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -79,7 +83,6 @@ public class TrackingActivity extends ActionBarActivity
 
     private boolean mRequestingLocationUpdates = true;
     private boolean mResolvingError = false;
-
 
     Handler mHandler = new Handler() {
         @Override
@@ -372,8 +375,15 @@ public class TrackingActivity extends ActionBarActivity
             if(routeName.isEmpty()) {
                 Toast.makeText(this, getResources().getString(R.string.route_name_empty), Toast.LENGTH_LONG).show();
             } else {
-                boolean saveStatus = saveTrackingData(LocationReceiver.loggedLocations, routeName, BackgroundLocationService.timer.getElapsedTime(),
-                        new Date(BackgroundLocationService.timer.getStartTime()), new Date(BackgroundLocationService.timer.getStopTime()));
+                long startTime = BackgroundLocationService.timer.getStartTime();
+                long endTime = BackgroundLocationService.timer.getStopTime();
+                long elapsed = BackgroundLocationService.timer.getElapsedTime();
+                boolean saveStatus = saveTrackingData(LocationReceiver.loggedLocations, routeName, elapsed,
+                        new Date(startTime), new Date(endTime));
+
+                // Save route online
+                RoutesUtils.updateRoute(1, routeName, LocationReceiver.currentDistance,
+                        LocationReceiver.currentDistance/(elapsed/1000), new Timestamp(startTime), new Timestamp(endTime));
 
                 if(saveStatus) {
                     Toast.makeText(this, getResources().getString(R.string.route_saved), Toast.LENGTH_LONG).show();
@@ -465,8 +475,13 @@ public class TrackingActivity extends ActionBarActivity
     private void startLocationService() {
         Log.d("Tracker", "startLocationService()");
         Toast.makeText(this, "startLocationService()", Toast.LENGTH_SHORT).show();
+
+        // Insert new route in Database
+        RoutesUtils.insertNewRoute(MainActivity.USER_FB_ID);
+
         Intent locationService = new Intent(this, BackgroundLocationService.class);
         startService(locationService);
+
         mRequestingLocationUpdates = true;
     }
 
