@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,10 +55,10 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
         {
             case R.id.action_settings:
                 return true;
-            case R.id.action_plans:
+            /*case R.id.action_plans:
                 Intent plansActivity = new Intent(this, PlansActivity.class);
                 startActivity(plansActivity);
-                return true;
+                return true; */
             case R.id.action_logout:
                 Session.getActiveSession().closeAndClearTokenInformation();
                 finish();
@@ -79,5 +80,17 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
                 startActivity(listRoutesActivity);
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        // Move app in background on back button pressed
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            this.moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

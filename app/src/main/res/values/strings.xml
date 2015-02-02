@@ -74,6 +74,7 @@
     <string name="logout">Odjava</string>
     <string name="return_to_app">Nazaj na aplikacijo</string>
     <string name="get_started">Za začetek, se prijavi s Facebook računom</string>
-
+    <string name="last_acivity">Zadnja aktivnost</string>
+    <string name="live_tracking">Sledenje v živo</string>
 
 </resources>

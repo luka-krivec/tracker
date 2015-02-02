@@ -392,6 +392,7 @@ public class TrackingActivity extends ActionBarActivity
                 }
             }
         } else {
+            RoutesUtils.deleteRoute(idRoute);
             Toast.makeText(this, getResources().getString(R.string.route_discared), Toast.LENGTH_LONG).show();
         }
 

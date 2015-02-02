@@ -8,10 +8,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_plans"
+    <!-- <item android:id="@+id/action_plans"
         android:title="@string/action_plans"
+        android:icon="@drawable/ic_action_pen"
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="always" /> -->
 
     <item android:id="@+id/action_logout"
         android:title="@string/action_logout"

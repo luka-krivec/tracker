@@ -72,10 +72,10 @@ public class SelectionFragment extends Fragment implements View.OnClickListener 
         {
             case R.id.action_settings:
                 return true;
-            case R.id.action_plans:
+            /*case R.id.action_plans:
                 Intent plansActivity = new Intent(getActivity().getApplicationContext(), PlansActivity.class);
                 startActivity(plansActivity);
-                return true;
+                return true;*/
         }
 
         return super.onOptionsItemSelected(item);

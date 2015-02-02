@@ -1,13 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     android:paddingTop="32dp"
     android:paddingBottom="16dp"
     tools:context="si.krivec.tracker.SelectionActivity">
 
     <TableLayout
+        android:id="@+id/tableButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
@@ -28,6 +30,54 @@
                 android:layout_toRightOf="@id/btnLauncherStart"
                 android:background="@drawable/button_launcher_activities"/>
         </TableRow>
+
     </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutLastActivity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableButtons"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_green_rounded_corners">
+
+        <TextView
+            android:id="@+id/txtLastActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/last_acivity"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAllCaps="true"/>
+
+        <View
+            android:id="@+id/viewLineLastActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_below="@id/txtLastActivity"
+            android:background="@color/colorPrimary" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/abc_primary_text_disable_only_material_dark"
+        android:text="@string/live_tracking"
+        android:layout_margin="16dp"/>
+
+
 
 </RelativeLayout>

@@ -51,6 +51,26 @@ public class RoutesUtils {
     }
 
     /**
+     * Delete route and all points from database.
+     */
+    public static void deleteRoute(int idRoute) {
+
+        final String url = Constants.BACKEND_URL + "/routes";
+        final String paramsDelete = "deleteRoute=true"+ "&idRoute=" + idRoute;
+
+        new AsyncTask<String, Void, Intent>() {
+
+            @Override
+            protected Intent doInBackground(String... params) {
+                String res = WebUtils.executePost(url, paramsDelete);
+                Log.d("ROUTES insertNewRoute", res);
+
+                return null;
+            }
+        }.execute();
+    }
+
+    /**
      * Update route data.
      * @param idRoute
      * @param routeName

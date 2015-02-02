@@ -25,6 +25,7 @@ public class LocationReceiver extends BroadcastReceiver {
     public static Location lastLocation;
     public static String lastUpdateTime;
     public static double currentDistance = 0;
+    public static double maxSpeed = 0;
 
     private Context ctx;
 
@@ -38,6 +39,25 @@ public class LocationReceiver extends BroadcastReceiver {
     private void logLocation(Location loc) {
 
         if(loc != null) {
+
+            if(loc.hasSpeed() && loc.getSpeed() < 2) {
+                Log.d("TRACKER", "Point skipped, reason speed = " + loc.getSpeed());
+                Toast.makeText(ctx, "Point skipped, reason speed = " + loc.getSpeed(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(loc.hasAccuracy() && loc.getAccuracy() < 10) {
+                Log.d("TRACKER", "Point skipped, reason accuracy = " + loc.getAccuracy());
+                Toast.makeText(ctx, "Point skipped, reason accuracy = " + loc.getAccuracy(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Log max speed
+            if(loc.hasSpeed() && loc.getSpeed() > maxSpeed) {
+                maxSpeed = loc.getSpeed();
+                Log.d("TRACKER", "Max speed: " + maxSpeed);
+            }
+
             Log.d("MyLocationListener", "Latitude: " + loc.getLatitude() + ", Logitude: " + loc.getLongitude());
             Toast.makeText(ctx, "lat: " + loc.getLatitude()+ ", lon:" + loc.getLongitude() +
                     ", altitude:" + loc.getAltitude() + ", acc: " + loc.getAccuracy(), Toast.LENGTH_SHORT).show();
