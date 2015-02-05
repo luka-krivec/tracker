@@ -33,41 +33,104 @@
 
     </TableLayout>
 
-    <RelativeLayout
+    <TableLayout
         android:id="@+id/layoutLastActivity"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tableButtons"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rectangle_green_rounded_corners">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rectangle_green_rounded_corners"
+        android:stretchColumns="*">
 
-        <TextView
-            android:id="@+id/txtLastActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:text="@string/last_acivity"
-            android:textColor="@color/colorPrimaryDark"
-            android:textAllCaps="true"/>
-
-        <View
-            android:id="@+id/viewLineLastActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:layout_below="@id/txtLastActivity"
-            android:background="@color/colorPrimary" />
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+        <TableRow>
+            <TextView
+                android:id="@+id/txtLastActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/last_acivity"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"/>
+        </TableRow>
 
 
+        <TableRow>
+            <View
+                android:id="@+id/viewLineLastActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimary" />
 
-    </RelativeLayout>
+        </TableRow>
+
+
+        <TableRow
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/txtStartRouteName"
+                android:text="@string/route_name" />
+        </TableRow>
+        <TableRow>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+        </TableRow>
+
+
+        <TableRow
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/txtStartRouteDistance"
+                android:text="@string/route_distance" />
+        </TableRow>
+        <TableRow>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+        </TableRow>
+
+
+        <TableRow
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/txtStartRouteAvgSpeed"
+                android:text="@string/route_avg_speed" />
+        </TableRow>
+        <TableRow>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+        </TableRow>
+
+
+        <TableRow
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/txtStartRouteStartTime"
+                android:text="@string/start_time" />
+        </TableRow>
+        <TableRow>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+        </TableRow>
+
+        <TableRow
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/txtStartRouteEndTime"
+                android:text="@string/end_time" />
+        </TableRow>
+
+    </TableLayout>
 
     <Button
         android:layout_width="fill_parent"
@@ -76,7 +139,7 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/abc_primary_text_disable_only_material_dark"
         android:text="@string/live_tracking"
-        android:layout_margin="16dp"/>
+        android:layout_margin="20dp"/>
 
 
 
