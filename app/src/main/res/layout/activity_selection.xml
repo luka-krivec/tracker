@@ -73,6 +73,11 @@
             <TextView
                 android:id="@+id/txtStartRouteName"
                 android:text="@string/route_name" />
+
+            <TextView
+                android:id="@+id/txtStartRouteNameValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </TableRow>
         <TableRow>
             <View
@@ -87,6 +92,11 @@
             <TextView
                 android:id="@+id/txtStartRouteDistance"
                 android:text="@string/route_distance" />
+
+            <TextView
+                android:id="@+id/txtStartRouteDistanceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </TableRow>
         <TableRow>
             <View
@@ -101,6 +111,11 @@
             <TextView
                 android:id="@+id/txtStartRouteAvgSpeed"
                 android:text="@string/route_avg_speed" />
+
+            <TextView
+                android:id="@+id/txtStartRouteAvgSpeedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </TableRow>
         <TableRow>
             <View
@@ -115,6 +130,11 @@
             <TextView
                 android:id="@+id/txtStartRouteStartTime"
                 android:text="@string/start_time" />
+
+            <TextView
+                android:id="@+id/txtStartRouteStartTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </TableRow>
         <TableRow>
             <View
@@ -128,6 +148,11 @@
             <TextView
                 android:id="@+id/txtStartRouteEndTime"
                 android:text="@string/end_time" />
+
+            <TextView
+                android:id="@+id/txtStartRouteEndTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </TableRow>
 
     </TableLayout>

@@ -25,7 +25,10 @@ import com.facebook.model.GraphUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+
 import utils.Constants;
+import utils.RoutesUtils;
 import utils.WebUtils;
 
 
@@ -215,6 +218,17 @@ public class MainActivity extends FragmentActivity {
                                 userName = user.getFirstName() + (user.getMiddleName() != null ? user.getMiddleName() + " " : " ") +  user.getLastName();
                                 USER_FB_ID = user.getId();
                                 userBirthday = user.getBirthday();
+
+                                // Get user last route
+                                JSONObject lastRoute = RoutesUtils.getLastRoute(MainActivity.USER_FB_ID);
+
+                                if(lastRoute != null) {
+                                    try {
+                                        String success = lastRoute.getString("success");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                                 userSignUp();
                             }
                         }
@@ -223,7 +237,8 @@ public class MainActivity extends FragmentActivity {
                         }
                     }
                 });
-        request.executeAsync();
+       request.executeAsync();
+       // TODO: Change to request.executeAndWait()
     }
 
     private void userSignUp() {

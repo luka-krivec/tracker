@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.facebook.Session;
 
@@ -17,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.Constants;
+import utils.RoutesUtils;
 import utils.WebUtils;
 
 
@@ -28,6 +30,18 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
     private ImageButton btnLauncherStart;
     private ImageButton btnLauncherActivities;
 
+    private TextView txtStartRouteNameValue;
+    private TextView txtStartRouteDistanceValue;
+    private TextView txtStartRouteAvgSpeedValue;
+    private TextView txtStartRouteStartTimeValue;
+    private TextView txtStartRouteEndTimeValue;
+
+    public static String ROUTE_NAME;
+    public static double ROUTE_DISTANCE;
+    public static double ROUTE_AVG_SPEED;
+    public static String ROUTE_START_TIME;
+    public static String ROUTE_END_TIME;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +52,22 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
 
         btnLauncherActivities = (ImageButton) findViewById(R.id.btnLauncherActivities);
         btnLauncherActivities.setOnClickListener(this);
+
+        txtStartRouteNameValue = (TextView) findViewById(R.id.txtStartRouteNameValue);
+        txtStartRouteDistanceValue = (TextView) findViewById(R.id.txtStartRouteDistanceValue);
+        txtStartRouteAvgSpeedValue = (TextView) findViewById(R.id.txtStartRouteAvgSpeedValue);
+        txtStartRouteStartTimeValue = (TextView) findViewById(R.id.txtStartRouteStartTimeValue);
+        txtStartRouteEndTimeValue = (TextView) findViewById(R.id.txtStartRouteEndTimeValue);
+
+        setLastRouteValues(ROUTE_NAME, ROUTE_DISTANCE, ROUTE_AVG_SPEED, ROUTE_START_TIME, ROUTE_END_TIME);
+    }
+
+    public void setLastRouteValues(String name, double distance, double avgSpeed, String startTime, String endTime) {
+        txtStartRouteNameValue.setText(name);
+        txtStartRouteDistanceValue.setText(String.format("%.2f", distance));
+        txtStartRouteAvgSpeedValue.setText(String.format("%.2f", avgSpeed));
+        txtStartRouteStartTimeValue.setText(startTime);
+        txtStartRouteEndTimeValue.setText(endTime);
     }
 
     @Override
