@@ -57,60 +57,6 @@ public class RoutesUtils {
     }
 
     /**
-     * Get last route for Facebook user
-     * @param idFacebook Id get from Facebook for specific user (Stored in database - table Users)
-     */
-    public static JSONObject getLastRoute(String idFacebook) {
-        final String url = Constants.BACKEND_URL + "/routes";
-        final String paramsGet =
-                "getLastRoute=true"
-                        + "&idFacebook=" + idFacebook;
-
-
-        try {
-            new AsyncTask<String, Void, JSONObject>() {
-
-                @Override
-                protected JSONObject doInBackground(String... params) {
-                    SimpleDateFormat formater = new SimpleDateFormat("d.M.yyyy HH:mm");
-                    SimpleDateFormat parseFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-                    String res = WebUtils.executePost(url, paramsGet);
-                    JSONObject resJson = null;
-
-                    try {
-                        resJson = new JSONObject(res);
-
-                        if(resJson != null && resJson.getString("success") != null && resJson.getString("success").length() > 0) {
-                            SelectionActivity.ROUTE_NAME = resJson.getString("routeName");
-                            SelectionActivity.ROUTE_DISTANCE = resJson.getDouble("distance");
-                            SelectionActivity.ROUTE_AVG_SPEED = resJson.getDouble("averageSpeed");
-                            SelectionActivity.ROUTE_START_TIME = formater.format(parseFormater.parse(resJson.getString("startTime").replace("\"", "")));
-                            SelectionActivity.ROUTE_END_TIME = formater.format(parseFormater.parse(resJson.getString("endTime").replace("\"", "")));
-                        }
-                        return  resJson;
-                    } catch (JSONException ex) {
-                        Log.d("RouteUtils", ex.getMessage());
-                    } catch (ParseException ex) {
-                        Log.d("RouteUtils", ex.getMessage());
-                    }
-
-                    Log.d("ROUTES getLastRoute", res);
-
-                    return resJson;
-                }
-            }.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-
-    /**
      * Delete route and all points from database.
      */
     public static void deleteRoute(int idRoute) {

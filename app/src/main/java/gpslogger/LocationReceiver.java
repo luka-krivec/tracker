@@ -42,13 +42,13 @@ public class LocationReceiver extends BroadcastReceiver {
 
             if(loc.hasSpeed() && loc.getSpeed() < 2) {
                 Log.d("TRACKER", "Point skipped, reason speed = " + loc.getSpeed());
-                Toast.makeText(ctx, "Point skipped, reason speed = " + loc.getSpeed(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ctx, "Point skipped, reason speed = " + loc.getSpeed(), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if(loc.hasAccuracy() && loc.getAccuracy() < 10) {
                 Log.d("TRACKER", "Point skipped, reason accuracy = " + loc.getAccuracy());
-                Toast.makeText(ctx, "Point skipped, reason accuracy = " + loc.getAccuracy(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ctx, "Point skipped, reason accuracy = " + loc.getAccuracy(), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -59,12 +59,12 @@ public class LocationReceiver extends BroadcastReceiver {
             }
 
             Log.d("MyLocationListener", "Latitude: " + loc.getLatitude() + ", Logitude: " + loc.getLongitude());
-            Toast.makeText(ctx, "lat: " + loc.getLatitude()+ ", lon:" + loc.getLongitude() +
-                    ", altitude:" + loc.getAltitude() + ", acc: " + loc.getAccuracy(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ctx, "lat: " + loc.getLatitude()+ ", lon:" + loc.getLongitude() +
+             //       ", altitude:" + loc.getAltitude() + ", acc: " + loc.getAccuracy(), Toast.LENGTH_SHORT).show();
 
             if(lastLocation != null) {
                 currentDistance += lastLocation.distanceTo(loc);
-                Toast.makeText(ctx, "Distance+: " + lastLocation.distanceTo(loc), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ctx, "Distance+: " + lastLocation.distanceTo(loc), Toast.LENGTH_SHORT).show();
             }
 
             loggedLocations.add(loc);

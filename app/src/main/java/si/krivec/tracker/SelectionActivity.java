@@ -1,5 +1,6 @@
 package si.krivec.tracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import com.facebook.Session;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import asynctasks.LastRoute;
+import maps.LiveTracker;
 import utils.Constants;
 import utils.RoutesUtils;
 import utils.WebUtils;
@@ -24,23 +28,9 @@ import utils.WebUtils;
 
 public class SelectionActivity extends ActionBarActivity implements View.OnClickListener {
 
-    private static final String TAG = "SelectionActivity";
-    private final String RESPONSE_OK = "OK";
-
     private ImageButton btnLauncherStart;
     private ImageButton btnLauncherActivities;
-
-    private TextView txtStartRouteNameValue;
-    private TextView txtStartRouteDistanceValue;
-    private TextView txtStartRouteAvgSpeedValue;
-    private TextView txtStartRouteStartTimeValue;
-    private TextView txtStartRouteEndTimeValue;
-
-    public static String ROUTE_NAME;
-    public static double ROUTE_DISTANCE;
-    public static double ROUTE_AVG_SPEED;
-    public static String ROUTE_START_TIME;
-    public static String ROUTE_END_TIME;
+    private Button btnLiveTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +43,12 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
         btnLauncherActivities = (ImageButton) findViewById(R.id.btnLauncherActivities);
         btnLauncherActivities.setOnClickListener(this);
 
-        txtStartRouteNameValue = (TextView) findViewById(R.id.txtStartRouteNameValue);
-        txtStartRouteDistanceValue = (TextView) findViewById(R.id.txtStartRouteDistanceValue);
-        txtStartRouteAvgSpeedValue = (TextView) findViewById(R.id.txtStartRouteAvgSpeedValue);
-        txtStartRouteStartTimeValue = (TextView) findViewById(R.id.txtStartRouteStartTimeValue);
-        txtStartRouteEndTimeValue = (TextView) findViewById(R.id.txtStartRouteEndTimeValue);
+        btnLiveTracker = (Button) findViewById(R.id.btnLiveTracker);
+        btnLiveTracker.setOnClickListener(this);
 
-        setLastRouteValues(ROUTE_NAME, ROUTE_DISTANCE, ROUTE_AVG_SPEED, ROUTE_START_TIME, ROUTE_END_TIME);
-    }
-
-    public void setLastRouteValues(String name, double distance, double avgSpeed, String startTime, String endTime) {
-        txtStartRouteNameValue.setText(name);
-        txtStartRouteDistanceValue.setText(String.format("%.2f", distance));
-        txtStartRouteAvgSpeedValue.setText(String.format("%.2f", avgSpeed));
-        txtStartRouteStartTimeValue.setText(startTime);
-        txtStartRouteEndTimeValue.setText(endTime);
+        // Fill last route data
+        //LastRoute lastRouteAsync = new LastRoute(SelectionActivity.this);
+        //lastRouteAsync.execute();
     }
 
     @Override
@@ -108,6 +89,10 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
             case R.id.btnLauncherActivities:
                 Intent listRoutesActivity = new Intent(this, ListRoutesActivity.class);
                 startActivity(listRoutesActivity);
+                break;
+            case R.id.btnLiveTracker:
+                Intent liveTrackerActivity = new Intent(this, LiveTrackerActivity.class);
+                startActivity(liveTrackerActivity);
                 break;
         }
     }

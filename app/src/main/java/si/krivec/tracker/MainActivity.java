@@ -26,7 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutionException;
 
+import asynctasks.FacebookUserLogin;
+import asynctasks.LastRoute;
 import utils.Constants;
 import utils.RoutesUtils;
 import utils.WebUtils;
@@ -40,10 +43,6 @@ public class MainActivity extends FragmentActivity {
     private static final int FRAGMENT_COUNT = SETTINGS  +1;
 
     public static String USER_FB_ID;
-    private String userName;
-    private String userBirthday;
-
-    private final String RESPONSE_OK = "OK";
 
     private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 
@@ -131,7 +130,8 @@ public class MainActivity extends FragmentActivity {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (session != null && session.isOpened()) {
             // Get the user's data.
-            makeMeRequest(session);
+            FacebookUserLogin fbLogin = new FacebookUserLogin(session);
+            fbLogin.execute();
         }
 
         // Only make changes if the activity is visible
@@ -205,73 +205,7 @@ public class MainActivity extends FragmentActivity {
         transaction.commit();
     }
 
-    private void makeMeRequest(final Session session) {
-        // Make an API call to get user data and define a
-        // new callback to handle the response.
-        Request request = Request.newMeRequest(session,
-                new Request.GraphUserCallback() {
-                    @Override
-                    public void onCompleted(GraphUser user, Response response) {
-                        // If the response is successful
-                        if (session == Session.getActiveSession()) {
-                            if (user != null) {
-                                userName = user.getFirstName() + (user.getMiddleName() != null ? user.getMiddleName() + " " : " ") +  user.getLastName();
-                                USER_FB_ID = user.getId();
-                                userBirthday = user.getBirthday();
-
-                                // Get user last route
-                                JSONObject lastRoute = RoutesUtils.getLastRoute(MainActivity.USER_FB_ID);
-
-                                if(lastRoute != null) {
-                                    try {
-                                        String success = lastRoute.getString("success");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                userSignUp();
-                            }
-                        }
-                        if (response.getError() != null) {
-                            // Handle errors, will do so later.
-                        }
-                    }
-                });
-       request.executeAsync();
-       // TODO: Change to request.executeAndWait()
-    }
-
-    private void userSignUp() {
-        new AsyncTask<String, Void, Intent>() {
-
-            @Override
-            protected Intent doInBackground(String... params) {
-                if (USER_FB_ID != null && userName != null) {
-                    String parameters = "userFbSignUp=true"
-                            + "&username=" + userName
-                            + "&idFacebook=" + USER_FB_ID
-                            + "&birthday=" + userBirthday;
-
-                    String response = WebUtils.executePost(Constants.BACKEND_URL + "/users", parameters);
-
-                    if(response != null) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-
-                            if (jsonResponse.getBoolean("success")) {
-                                Log.d("MainActivity", "SUCCESS: " + jsonResponse.toString());
-                            } else {
-                                Log.d("MainActivity", "WARNING: " + jsonResponse.toString());
-                            }
-                        } catch (JSONException jex) {
-                            Log.d("MainActivity", "ERROR: " + jex.getMessage());
-                        }
-                    }
-                }
 
 
-                return null;
-            }
-        }.execute();
-    }
+
 }

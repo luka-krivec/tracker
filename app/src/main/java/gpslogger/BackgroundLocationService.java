@@ -84,7 +84,7 @@ public class BackgroundLocationService extends Service {
         if(servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected() && !mInProgress) {
             startLocationUpdates();
             mInProgress = true;
-            Toast.makeText(getApplicationContext(), "Logger service started!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Logger service started!", Toast.LENGTH_SHORT).show();
             return START_STICKY;
         }
 
@@ -149,7 +149,7 @@ public class BackgroundLocationService extends Service {
         timer = null; // Destroy timer
 
         // Display the connection status
-        Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
         //appendLog(DateFormat.getDateTimeInstance().format(new Date()) + ": Stopped", Constants.LOG_FILE);
         Log.d("TRACKING", DateFormat.getDateTimeInstance().format(new Date()) + ": Stopped");
         super.onDestroy();
@@ -159,7 +159,7 @@ public class BackgroundLocationService extends Service {
         timer.start();
 
         Log.d("TRACKING", "startLocationUpdates()");
-        Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": startLocationUpdates", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": startLocationUpdates", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -172,7 +172,7 @@ public class BackgroundLocationService extends Service {
         timer.stop();
 
         Log.d("TRACKING", "stopLocationUpdates()");
-        Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": stopLocationUpdates", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, DateFormat.getDateTimeInstance().format(new Date()) + ": stopLocationUpdates", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);

@@ -17,8 +17,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:logo="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:logo="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.gms.version"
@@ -32,8 +32,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:icon="@drawable/ic_launcher" >
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".TrackingActivity"
-            android:label="@string/title_activity_tracking">
+            android:label="@string/title_activity_tracking" >
         </activity>
         <activity
             android:name=".ListRoutesActivity"
@@ -50,8 +50,8 @@
         </activity>
         <activity
             android:name="fileexplorer.FileChooser"
-            android:label="@string/title_activity_file_chooser"
-            android:icon="@drawable/ic_launcher" >
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/title_activity_file_chooser" >
         </activity>
         <activity
             android:name=".MapActivity"
@@ -86,9 +86,8 @@
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="@string/title_activity_login"
-            android:icon="@drawable/ic_launcher" >
-
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name="com.amazon.identity.auth.device.authorization.AuthorizationActivity"
@@ -108,15 +107,19 @@
         </activity>
         <activity
             android:name=".LoginFacebookActivity"
-            android:label="@string/title_activity_login_facebook">
+            android:label="@string/title_activity_login_facebook" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
-            android:label="@string/title_activity_login_facebook">
+            android:label="@string/title_activity_login_facebook" >
         </activity>
         <activity
             android:name=".SelectionActivity"
             android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name=".LiveTrackerActivity"
+            android:label="@string/title_activity_live_tracker" >
         </activity>
     </application>
 

@@ -33,6 +33,7 @@
 
     </TableLayout>
 
+    <!--
     <TableLayout
         android:id="@+id/layoutLastActivity"
         android:layout_width="fill_parent"
@@ -156,11 +157,13 @@
         </TableRow>
 
     </TableLayout>
+    -->
 
     <Button
+        android:id="@+id/btnLiveTracker"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tableButtons"
         android:background="@color/colorPrimary"
         android:textColor="@color/abc_primary_text_disable_only_material_dark"
         android:text="@string/live_tracking"
