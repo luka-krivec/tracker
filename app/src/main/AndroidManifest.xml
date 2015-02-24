@@ -121,6 +121,10 @@
             android:name=".LiveTrackerActivity"
             android:label="@string/title_activity_live_tracker" >
         </activity>
+        <activity
+            android:name=".ListUsersActivity"
+            android:label="@string/title_activity_list_users" >
+        </activity>
     </application>
 
 </manifest>
