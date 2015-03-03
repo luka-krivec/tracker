@@ -10,6 +10,7 @@
     <string name="action_importGpx">Uvozi GPX</string>
     <string name="action_plans">Plani</string>
     <string name="action_logout">Odjava</string>
+    <string name="action_selectUser">Izberi uporabnika</string>
 
     <!-- Activities titles -->
     <string name="title_activity_tracking">Beleženje</string>

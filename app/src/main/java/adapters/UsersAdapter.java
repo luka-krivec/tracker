@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import gpslogger.CyclingRoute;
 import si.krivec.tracker.MapActivity;
 import si.krivec.tracker.R;
@@ -20,10 +22,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     private Context context;
     private int rowLayout;
-    User[] objects;
+    ArrayList<User> objects;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public UsersAdapter(Context context, int rowLayout, User[] objects) {
+    public UsersAdapter(Context context, int rowLayout, ArrayList<User> objects) {
         this.context = context;
         this.rowLayout = rowLayout;
         this.objects = objects;
@@ -37,7 +39,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        User user = objects[position];
+        User user = objects.get(position);
 
         /*holder.textViewDate.setText(DateUtilities.formatShortDate2(route.getStartTime()));
         holder.textViewName.setText(route.getName());
@@ -48,7 +50,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return objects == null ? 0 : objects.length;
+        return objects == null ? 0 : objects.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
