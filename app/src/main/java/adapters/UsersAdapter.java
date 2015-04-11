@@ -8,13 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import asynctasks.GetLastPoint;
 import gpslogger.CyclingRoute;
+import si.krivec.tracker.LiveTrackerActivity;
 import si.krivec.tracker.MapActivity;
 import si.krivec.tracker.R;
 import utils.DateUtilities;
+import utils.TrackerPoint;
 import utils.User;
 
 
@@ -40,6 +47,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = objects.get(position);
+        holder.userName.setText(user.getUserName());
+        holder.user = user;
+
 
         /*holder.textViewDate.setText(DateUtilities.formatShortDate2(route.getStartTime()));
         holder.textViewName.setText(route.getName());
@@ -54,26 +64,36 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView textViewDate;
-        public TextView textViewName;
-        public TextView textViewDistance;
-        public TextView textViewTime;
-        public TextView textViewAvgSpeed;
-        public ImageButton btnMap;
+        public TextView userName;
+        public User user;
 
         public ViewHolder(View v) {
             super(v);
-            textViewDate = (TextView) v.findViewById(R.id.txtRowRouteDate);
-            textViewName = (TextView) v.findViewById(R.id.txtRowRouteName);
-            textViewDistance = (TextView) v.findViewById(R.id.txtRowRouteDistance);
-            textViewTime = (TextView) v.findViewById(R.id.txtRowRouteTime);
-            textViewAvgSpeed = (TextView) v.findViewById(R.id.txtRowRouteAvgSpeed);
-            btnMap = (ImageButton) v.findViewById(R.id.btnRowRouteMap);
-            btnMap.setOnClickListener(this);
+            v.setOnClickListener(this);
+
+            userName = (TextView) v.findViewById(R.id.txtRowUsersUserName);
         }
 
         @Override
         public void onClick(View v) {
+            TextView userName = (TextView) v.findViewById(R.id.txtRowUsersUserName);
+            //Toast.makeText(v.getContext(), idUser+"", Toast.LENGTH_SHORT).show();
+
+            try {
+                TrackerPoint lastPoint = new GetLastPoint().execute(user.getIdUser()).get();
+                Toast.makeText(v.getContext(), lastPoint.getLat() + " " + lastPoint.getLng(), Toast.LENGTH_SHORT).show();
+
+                Intent trackingActivity = new Intent(v.getContext(), LiveTrackerActivity.class);
+                trackingActivity.putExtra("point", lastPoint);
+                v.getContext().startActivity(trackingActivity);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
             /*Context context = v.getContext();
             String gpxFile = context.getExternalFilesDir(null).getAbsolutePath() + "/gpx/" + textViewDate.getText() + "/" + textViewName.getText() + ".gpx";
 

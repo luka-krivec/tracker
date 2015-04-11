@@ -11,7 +11,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
+
+import java.io.Serializable;
+
+import utils.TrackerPoint;
 
 
 public class LiveTrackerActivity extends ActionBarActivity {
@@ -26,6 +32,11 @@ public class LiveTrackerActivity extends ActionBarActivity {
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment_live);
         setUpMapIfNeeded();
+
+        TrackerPoint point = (TrackerPoint) getIntent().getSerializableExtra("point");
+        if(point != null) {
+            setUpMap(new LatLng(point.getLat(), point.getLng()));
+        }
     }
 
 
@@ -61,12 +72,20 @@ public class LiveTrackerActivity extends ActionBarActivity {
             mMap = mapFragment.getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                setUpMap();
+                //setUpMap();
             }
         }
     }
 
-    private void setUpMap() {
-        // TODO: Move camera to right position and zoom
+    private void setUpMap(LatLng startPosition) {
+        CameraPosition startCameraPosition = new CameraPosition.Builder()
+                .target(startPosition)
+                .zoom(10.5f)
+                .build();
+
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(startCameraPosition));
+        mMap.addMarker(new MarkerOptions().position(startPosition));
     }
+
+
 }

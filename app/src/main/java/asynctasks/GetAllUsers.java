@@ -36,27 +36,28 @@ public class GetAllUsers extends AsyncTask<Void, Integer, ArrayList<User>> {
 
     private ArrayList<User> addUsersToList(JSONObject users) {
         ArrayList<User> usersList = new ArrayList<>();
-        JSONArray usersArray;
+
+        HashMap<Integer, User> usersMap = new HashMap<>();
 
         try {
-            usersArray = new JSONArray(users);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return usersList;
-        }
+            JSONArray userArray = users.getJSONArray("users");
 
-        HashMap<Integer, User> usersMap = new HashMap<Integer, User>();
-        for(int i = 0; i < users.length(); i++){
-            try {
-                int idUser = usersArray.getJSONObject(i).getInt("idUser");
-                String userName = usersArray.getJSONObject(i).getString("userName");
-                User user = new User(idUser, userName);
-                usersMap.put(idUser, user);
-                usersList.add(user);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            for(int i = 0; i < users.length(); i++){
+                try {
+                    int idUser = userArray.getJSONObject(i).getInt("idUser");
+                    String userName = userArray.getJSONObject(i).getString("userName");
+                    String idFacebook = userArray.getJSONObject(i).getString("idFacebook");
+                    User user = new User(idUser, userName, idFacebook);
+                    usersMap.put(idUser, user);
+                    usersList.add(user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         return usersList;
