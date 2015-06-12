@@ -5,16 +5,16 @@ android {
         config {
             keyAlias 'TrackerKey'
             keyPassword 'tracker4850'
-            storeFile file('C:/Programming/AndroidStudio/Keystores/tracker.jks')
+            storeFile file('tracker.jks')
             storePassword 'tracker4850'
         }
     }
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId "si.krivec.tracker"
         minSdkVersion 19
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -34,12 +34,10 @@ repositories { mavenCentral() }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:22.1.0'
     // Google Play Services
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
-    compile files('C:/Programming/AndroidStudio/Tracker/libs/login-with-amazon-sdk.jar')
-    compile files('C:/Programming/AndroidStudio/Tracker/libs/aws-android-sdk-2.1.8-core.debug.jar')
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
 }

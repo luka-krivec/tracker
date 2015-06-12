@@ -207,7 +207,7 @@ public class TrackingActivity extends ActionBarActivity
             try {
                 alertDialog.show();
             } catch (Exception ex) {
-                Log.d("GPSLoggerService - enable GPS dialog show error: ", ex.getMessage());
+                Log.d("GPS dialog show error: ", ex.getMessage());
                 ex.printStackTrace();
             }
         }
