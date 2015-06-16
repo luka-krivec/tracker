@@ -80,6 +80,12 @@ public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDi
         ArrayList<CyclingRoute> listRoutes = new ArrayList<>();
 
         File dirExternalStorageRoot = getExternalFilesDir(null);
+
+        if(dirExternalStorageRoot == null) {
+            Toast.makeText(this, R.string.alert_cant_read_data, Toast.LENGTH_SHORT).show();
+            return listRoutes.toArray(new CyclingRoute[0]);
+        }
+
         File dirExternalStorageGpxStore = new File(dirExternalStorageRoot.getAbsolutePath() + "/gpx/");
         dirExternalStorageGpxStore.mkdirs();
         String extension;

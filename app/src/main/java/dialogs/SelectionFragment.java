@@ -11,12 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.facebook.Session;
-
 import si.krivec.tracker.ListRoutesActivity;
-import si.krivec.tracker.PlansActivity;
 import si.krivec.tracker.R;
-import si.krivec.tracker.SignUpActivity;
 import si.krivec.tracker.TrackingActivity;
 
 

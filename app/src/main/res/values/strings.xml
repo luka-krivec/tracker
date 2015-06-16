@@ -12,6 +12,8 @@
     <string name="action_logout">Odjava</string>
     <string name="action_selectUser">Izberi uporabnika</string>
 
+    <string name="alert_cant_read_data">Nemorem prebrati podatkov</string>
+
     <!-- Activities titles -->
     <string name="title_activity_tracking">Beleženje</string>
     <string name="title_activity_file_chooser">Iskalnik datotek</string>

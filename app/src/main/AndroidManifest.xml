@@ -61,50 +61,11 @@
             android:name=".PlansActivity"
             android:label="@string/title_activity_plans" >
         </activity>
-        <activity
-            android:name=".AuthenticatorActivity"
-            android:label="@string/title_activity_authenticator" >
-        </activity>
-        <activity
-            android:name=".SignUpActivity"
-            android:label="@string/title_activity_sign_up" >
-        </activity>
 
-        <service android:name="authentication.CyclingMasterAuthenticatorService" >
-            <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator" />
-        </service>
         <service android:name="gpslogger.BackgroundLocationService" />
 
         <receiver android:name="gpslogger.LocationReceiver" />
 
-        <activity
-            android:name=".LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
-            android:name="com.amazon.identity.auth.device.authorization.AuthorizationActivity"
-            android:allowTaskReparenting="true"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoDisplay" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="com.amazon.identity.auth.device.lwaapp"
-                    android:scheme="amzn" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".LoginFacebookActivity"
             android:label="@string/title_activity_login_facebook" >
