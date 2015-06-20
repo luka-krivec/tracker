@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.facebook.AppEventsLogger;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -112,6 +113,9 @@ public class MainActivity extends FragmentActivity {
         super.onResume();
         uiHelper.onResume();
         isResumed = true;
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
     }
 
     @Override
@@ -119,6 +123,9 @@ public class MainActivity extends FragmentActivity {
         super.onPause();
         uiHelper.onPause();
         isResumed = false;
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
