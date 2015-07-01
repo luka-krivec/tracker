@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class TrackerUtils {
 
     public static void insertPointInDatabase(int idRoute, Location loc, final Context ctx) {
@@ -33,4 +35,44 @@ public class TrackerUtils {
         }.execute();
     }
 
+    /**
+     * Insert last N points in MongoDB. N is defined in Contants.java
+     * @param idRoute
+     * @param loggedLocations
+     */
+    public static void insertPointsInDatabase(final int idRoute, ArrayList<Location> loggedLocations) {
+        final String url = Constants.BACKEND_URL + "/tracker";
+
+        StringBuilder latsBuilder = new StringBuilder();
+        StringBuilder lonsBuilder = new StringBuilder();
+        int n = 0;
+
+        for(int i = loggedLocations.size()-1; i >= 0; i--) {
+            if(n == Constants.INSERT_N_POINTS_WRITE_DB) {
+                break;
+            }
+            Location loc = loggedLocations.get(i);
+            latsBuilder.append(loc.getLatitude() + ",");
+            lonsBuilder.append(loc.getLongitude() + ",");
+            n++;
+        }
+
+        String lats = latsBuilder.toString().substring(0, latsBuilder.length()-1);
+        String lons = lonsBuilder.toString().substring(0, lonsBuilder.length()-1);
+
+        new AsyncTask<String, Void, Intent>() {
+
+            @Override
+            protected Intent doInBackground(String... params) {
+                String paramsInsert =
+                        "idRoute=" + idRoute
+                        + "&lats=" + params[0]
+                        + "&lons=" + params[1];
+                String res = WebUtils.executePost(url, paramsInsert);
+                Log.d("TRACKER insertPoints", res);
+
+                return null;
+            }
+        }.execute(lats, lons);
+    }
 }

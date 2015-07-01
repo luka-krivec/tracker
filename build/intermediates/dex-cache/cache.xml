@@ -2,88 +2,88 @@
 <items version="2" >
 
     <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c6d79137693d494dee16372d3921f919eb724ced">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-e95ac61c26ff3a16cc2d04495b052a3cf459adb4.jar" />
-    </item>
-    <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="eeebabdfd8203f6ab639ccea4ffa1f20e1adee3a">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-33a00723c738cb8933ed833638f8486a6ff86a18.jar" />
-    </item>
-    <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/libs/internal_impl-22.1.0.jar"
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/libs/internal_impl-22.1.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.0-af7e1c404aab1bdc5a9edbc0161025e5053026cd.jar" />
-    </item>
-    <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="983e2f375504bc04def18e709c35192afe92e65f">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-463af9528e15dcdd05e1c54855542a0f70317d5c.jar" />
-    </item>
-    <item
-        jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.amazonaws/aws-android-sdk-core/2.2.1/36d1a20986f3b98033fc7bcf49724ad199a5cde7/aws-android-sdk-core-2.2.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="36d1a20986f3b98033fc7bcf49724ad199a5cde7">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/aws-android-sdk-core-2.2.1-d849c0626535aa6c453c57400e1e6379330299c6.jar" />
-    </item>
-    <item
-        jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/gson-2.2.4-37025a88513b9c355e74790c6099fcaa532c50ad.jar" />
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.0-d67f5038ab6b4bc8dc0546a50d7698b0f0b9aa83.jar" />
     </item>
     <item
         jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-736a0323207b34ad01396b4278c1d2a24617ca0b.jar" />
-    </item>
-    <item
-        jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.amazonaws/aws-android-sdk-cognito/2.2.1/729bcf0c29bf66cc048f11c48f0e13873858fe6/aws-android-sdk-cognito-2.2.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="0729bcf0c29bf66cc048f11c48f0e13873858fe6">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/aws-android-sdk-cognito-2.2.1-b7a32b35870db5bbc916e026e0f8742f4b6011c9.jar" />
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-736a0323207b34ad01396b4278c1d2a24617ca0b.jar" />
     </item>
     <item
         jar="/home/luka/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.0/support-annotations-22.1.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.0-1ce1387d5edf981570619c06dd01b1e80b40b5ca.jar" />
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.0-1ce1387d5edf981570619c06dd01b1e80b40b5ca.jar" />
     </item>
     <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/jars/classes.jar"
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-7adcbf6531f90e6222b7550db10eedf239f56163.jar" />
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-6ce1f452be10d92c72818c22412618253e5bcd33.jar" />
     </item>
     <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.21.1/jars/classes.jar"
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="0285ad8da812e92dda76ed5d0dcba05724c7911d">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-54f8aa3d7d670d0025f2e83c4181051d15876abf.jar" />
+        sha1="983e2f375504bc04def18e709c35192afe92e65f">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-eb813108a4dcc2bcd8b76645240cff579ad9df93.jar" />
     </item>
     <item
-        jar="/home/luka/StudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/jars/classes.jar"
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="11842de6a309c447b3a3d60d73ad637a87c58994">
-        <dex dex="/home/luka/StudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-21611b76999188df20253ee78b198df91700e47f.jar" />
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-600cef986310632998f16fcea59a75ec66824369.jar" />
+    </item>
+    <item
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.21.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0285ad8da812e92dda76ed5d0dcba05724c7911d">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-650dc24e894e2d251e7a8b6d28aa9d8c0dab6cac.jar" />
+    </item>
+    <item
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="eeebabdfd8203f6ab639ccea4ffa1f20e1adee3a">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-f293eceef02e496a084d35c9284d8421f20bdb4f.jar" />
+    </item>
+    <item
+        jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.amazonaws/aws-android-sdk-cognito/2.2.1/729bcf0c29bf66cc048f11c48f0e13873858fe6/aws-android-sdk-cognito-2.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0729bcf0c29bf66cc048f11c48f0e13873858fe6">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/aws-android-sdk-cognito-2.2.1-b7a32b35870db5bbc916e026e0f8742f4b6011c9.jar" />
+    </item>
+    <item
+        jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.amazonaws/aws-android-sdk-core/2.2.1/36d1a20986f3b98033fc7bcf49724ad199a5cde7/aws-android-sdk-core-2.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="36d1a20986f3b98033fc7bcf49724ad199a5cde7">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/aws-android-sdk-core-2.2.1-d849c0626535aa6c453c57400e1e6379330299c6.jar" />
+    </item>
+    <item
+        jar="/home/luka/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/gson-2.2.4-37025a88513b9c355e74790c6099fcaa532c50ad.jar" />
+    </item>
+    <item
+        jar="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/home/luka/AndroidStudioProjects/tracker/app/build/intermediates/pre-dexed/debug/classes-44c24b548e9bd26a971e7b5ffbea456f342aeac4.jar" />
     </item>
 
 </items>

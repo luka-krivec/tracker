@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import si.krivec.tracker.TrackingActivity;
+import utils.Constants;
 import utils.TrackerUtils;
 
 public class LocationReceiver extends BroadcastReceiver {
@@ -26,6 +27,7 @@ public class LocationReceiver extends BroadcastReceiver {
     public static String lastUpdateTime;
     public static double currentDistance = 0;
     public static double maxSpeed = 0;
+    private static int n = 0;
 
     private Context ctx;
 
@@ -68,13 +70,14 @@ public class LocationReceiver extends BroadcastReceiver {
             }
 
             loggedLocations.add(loc);
+            n += 1;
             lastLocation = loc;
             lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
             loggedLatLng.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
 
-            if(TrackingActivity.liveTracking) {
-                TrackerUtils.insertPointInDatabase(TrackingActivity.idRoute, loc, ctx);
+            if(TrackingActivity.liveTracking && (n % Constants.INSERT_N_POINTS_WRITE_DB == 0)) {
+                TrackerUtils.insertPointsInDatabase(TrackingActivity.idRoute, loggedLocations);
             }
         }
     }

@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Application settings -->
-    <string name="app_name">Sporty</string>
+    <string name="app_name">Live Sports Tracker</string>
     <string name="app_id">772751879478055</string>
 
     <!-- Menu actions names -->
