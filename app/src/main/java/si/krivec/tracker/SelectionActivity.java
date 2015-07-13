@@ -32,10 +32,6 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
 
         btnLiveTracker = (Button) findViewById(R.id.btnLiveTracker);
         btnLiveTracker.setOnClickListener(this);
-
-        // Fill last route data
-        //LastRoute lastRouteAsync = new LastRoute(SelectionActivity.this);
-        //lastRouteAsync.execute();
     }
 
     @Override
@@ -78,8 +74,8 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
                 startActivity(listRoutesActivity);
                 break;
             case R.id.btnLiveTracker:
-                Intent liveTrackerActivity = new Intent(this, LiveTrackerActivity.class);
-                startActivity(liveTrackerActivity);
+                Intent friendsActivity = new Intent(this, FriendsActivity.class);
+                startActivity(friendsActivity);
                 break;
         }
     }

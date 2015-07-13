@@ -31,7 +31,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     private int rowLayout;
     ArrayList<User> objects;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
     public UsersAdapter(Context context, int rowLayout, ArrayList<User> objects) {
         this.context = context;
         this.rowLayout = rowLayout;
@@ -49,13 +48,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         User user = objects.get(position);
         holder.userName.setText(user.getUserName());
         holder.user = user;
-
-
-        /*holder.textViewDate.setText(DateUtilities.formatShortDate2(route.getStartTime()));
-        holder.textViewName.setText(route.getName());
-        holder.textViewDistance.setText(String.format("%.2f km", route.getDistance() / 1000));
-        holder.textViewTime.setText(DateUtilities.timeToString((route.getTime())));
-        holder.textViewAvgSpeed.setText(String.format("%.2f km/h", route.getAverageSpeed()));*/
     }
 
     @Override
@@ -70,37 +62,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-
             userName = (TextView) v.findViewById(R.id.txtRowUsersUserName);
         }
 
         @Override
         public void onClick(View v) {
-            TextView userName = (TextView) v.findViewById(R.id.txtRowUsersUserName);
-            //Toast.makeText(v.getContext(), idUser+"", Toast.LENGTH_SHORT).show();
-
-            try {
-                TrackerPoint lastPoint = new GetLastPoint().execute(user.getIdUser()).get();
-                Toast.makeText(v.getContext(), lastPoint.getLat() + " " + lastPoint.getLng(), Toast.LENGTH_SHORT).show();
-
-                Intent trackingActivity = new Intent(v.getContext(), LiveTrackerActivity.class);
-                trackingActivity.putExtra("point", lastPoint);
-                v.getContext().startActivity(trackingActivity);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            /*Context context = v.getContext();
-            String gpxFile = context.getExternalFilesDir(null).getAbsolutePath() + "/gpx/" + textViewDate.getText() + "/" + textViewName.getText() + ".gpx";
-
-            Intent mapActivity = new Intent(context, MapActivity.class);
-            mapActivity.putExtra("gpxFile", gpxFile);
-
-            context.startActivity(mapActivity);*/
+            Toast.makeText(v.getContext(), user.getIdFacebook(), Toast.LENGTH_SHORT).show();
         }
     }
 

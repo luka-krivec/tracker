@@ -26,6 +26,8 @@
     <string name="title_activity_login_facebook">Facebook prijava</string>
     <string name="title_activity_selection">Live Sport Tracker</string>
     <string name="title_activity_live_tracker">Sledenje v živo</string>
+    <string name="title_activity_list_users">Seznam uporabnikov</string>
+    <string name="title_activity_friends">Prijatelji</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
@@ -37,6 +39,7 @@
     <string name="btn_share">Deli</string>
     <string name="btn_login">Prijava</string>
     <string name="btn_discard">Zavrzi</string>
+    <string name="btn_friends">Prijatelji</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
@@ -83,7 +86,7 @@
     <string name="time">Čas</string>
     <string name="start_time">Čas začetka</string>
     <string name="end_time">Čas konca</string>
-    <string name="title_activity_list_users">Seznam uporabnikov</string>
+
 
 
 </resources>

@@ -52,8 +52,7 @@ public class LiveTrackerActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_selectUser) {
-            Intent intentLstUsers = new Intent(this, ListUsersActivity.class);
-            startActivity(intentLstUsers);
+            // TODO: display friends
             return true;
         }
 
