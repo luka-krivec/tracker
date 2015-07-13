@@ -1,218 +1,90 @@
 package si.krivec.tracker;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.facebook.AppEventsLogger;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import asynctasks.FacebookUserLogin;
-import asynctasks.LastRoute;
-import utils.Constants;
-import utils.RoutesUtils;
-import utils.WebUtils;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private static final int SPLASH = 0;
-    private static final int SELECTION = 1;
-    private static final int SETTINGS = 2;
-    private static final int FRAGMENT_COUNT = SETTINGS  +1;
-
+    private LoginButton loginButton;
+    CallbackManager callbackManager;
     public static String USER_FB_ID;
-
-    private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
-
-    private MenuItem settings;
-
-    private boolean isResumed = false;
-
-    private UiLifecycleHelper uiHelper;
-    private Session.StatusCallback callback =
-            new Session.StatusCallback() {
-                @Override
-                public void call(Session session,
-                                 SessionState state, Exception exception) {
-                    onSessionStateChange(session, state, exception);
-                }
-            };
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
         setContentView(R.layout.activity_main);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
 
-        FragmentManager fm = getSupportFragmentManager();
-        fragments[SPLASH] = fm.findFragmentById(R.id.splashFragment);
-        fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
-        fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
-
-        FragmentTransaction transaction = fm.beginTransaction();
-        for(int i = 0; i < fragments.length; i++) {
-            transaction.hide(fragments[i]);
-        }
-        transaction.commit();
-
-        uiHelper = new UiLifecycleHelper(this, callback);
-        uiHelper.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // only add the menu when the selection fragment is showing
-        if (fragments[SELECTION].isVisible()) {
-            if (menu.size() == 0) {
-                settings = menu.add(R.string.action_settings);
-            }
-            return true;
+        if(AccessToken.getCurrentAccessToken()!=null) {
+            // User already login once
+            Intent selectionActivity = new Intent(MainActivity.this, SelectionActivity.class);
+            startActivity(selectionActivity);
         } else {
-            menu.clear();
-            settings = null;
-        }
-        return false;
-    }
+            loginButton.registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            Toast.makeText(getApplicationContext(), "Sucess login", Toast.LENGTH_SHORT).show();
+                            LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
+                                    Arrays.asList("public_profile", "user_friends"));
+                            Profile profile = Profile.getCurrentProfile();
+                            USER_FB_ID = profile.getId();
+                            loginUser(profile);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.equals(settings)) {
-            showFragment(SETTINGS, true);
-            return true;
-        }
+                            // Start app main screen
+                            Intent selectionActivity = new Intent(MainActivity.this, SelectionActivity.class);
+                            startActivity(selectionActivity);
+                        }
 
-        return super.onOptionsItemSelected(item);
-    }
+                        @Override
+                        public void onCancel() {
+                            Toast.makeText(getApplicationContext(), "Cancel login", Toast.LENGTH_SHORT).show();
+                        }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        uiHelper.onResume();
-        isResumed = true;
-
-        // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        uiHelper.onPause();
-        isResumed = false;
-
-        // Logs 'app deactivate' App Event.
-        AppEventsLogger.deactivateApp(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiHelper.onDestroy();
-    }
-
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (session != null && session.isOpened()) {
-            // Get the user's data.
-            FacebookUserLogin fbLogin = new FacebookUserLogin(session);
-            fbLogin.execute();
-        }
-
-        // Only make changes if the activity is visible
-        if (isResumed) {
-            FragmentManager manager = getSupportFragmentManager();
-            // Get the number of entries in the back stack
-            int backStackSize = manager.getBackStackEntryCount();
-            // Clear the back stack
-            for (int i = 0; i < backStackSize; i++) {
-                manager.popBackStack();
-            }
-            if (state.isOpened()) {
-                // If the session state is open:
-                // Show the authenticated fragment
-                //showFragment(SELECTION, false);
-                Intent intentSelection = new Intent(this, SelectionActivity.class);
-                startActivity(intentSelection);
-            } else if (state.isClosed()) {
-                // If the session state is closed:
-                // Show the login fragment
-                showFragment(SPLASH, false);
-            }
+                        @Override
+                        public void onError(FacebookException e) {
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("Facebook Login error: ", e.getMessage());
+                        }
+                    });
         }
     }
 
     @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        Session session = Session.getActiveSession();
-
-        if (session != null && session.isOpened()) {
-            // if the session is already open,
-            // try to show the selection fragment
-            //showFragment(SELECTION, false);
-            Intent intentSelection = new Intent(this, SelectionActivity.class);
-            startActivity(intentSelection);
-        } else {
-            // otherwise present the splash screen
-            // and ask the person to login.
-            showFragment(SPLASH, false);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uiHelper.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
-    }
-
-
-
-    private void showFragment(int fragmentIndex, boolean addToBackStack) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        for (int i = 0; i < fragments.length; i++) {
-            if (i == fragmentIndex) {
-                transaction.show(fragments[i]);
-            } else {
-                transaction.hide(fragments[i]);
-            }
+    private void loginUser(Profile profile) {
+        try {
+            new FacebookUserLogin().execute(profile).get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.d("MainActivity login:", e.getMessage());
+            e.printStackTrace();
         }
-        if (addToBackStack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
     }
-
-
-
 
 }

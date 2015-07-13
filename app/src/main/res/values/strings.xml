@@ -3,7 +3,7 @@
 
     <!-- Application settings -->
     <string name="app_name">Live Sports Tracker</string>
-    <string name="app_id">772751879478055</string>
+    <string name="facebook_app_id">772751879478055</string>
 
     <!-- Menu actions names -->
     <string name="action_settings">Nastavitve</string>

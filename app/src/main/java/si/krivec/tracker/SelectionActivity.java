@@ -1,29 +1,16 @@
 package si.krivec.tracker;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import com.facebook.Session;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import asynctasks.LastRoute;
-import maps.LiveTracker;
-import utils.Constants;
-import utils.RoutesUtils;
-import utils.WebUtils;
+import com.facebook.login.LoginManager;
 
 
 public class SelectionActivity extends ActionBarActivity implements View.OnClickListener {
@@ -71,7 +58,7 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
                 startActivity(plansActivity);
                 return true; */
             case R.id.action_logout:
-                Session.getActiveSession().closeAndClearTokenInformation();
+                LoginManager.getInstance().logOut();
                 finish();
                 break;
         }
