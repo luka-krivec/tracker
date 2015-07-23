@@ -63,6 +63,7 @@
         </activity>
 
         <service android:name="gpslogger.BackgroundLocationService" />
+        <service android:name=".LiveTrackingService" />
 
         <receiver android:name="gpslogger.LocationReceiver" />
 
@@ -78,10 +79,6 @@
         <activity
             android:name=".LiveTrackerActivity"
             android:label="@string/title_activity_live_tracker" >
-        </activity>
-        <activity
-            android:name=".ListUsersActivity"
-            android:label="@string/title_activity_list_users" >
         </activity>
         <activity
             android:name=".FriendsActivity"

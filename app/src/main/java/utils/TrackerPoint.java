@@ -8,11 +8,13 @@ import java.io.Serializable;
 public class TrackerPoint implements Serializable {
 
     private double lat;
-    private double  lng;
+    private double lng;
+    private long time;
 
-    public TrackerPoint(double lat, double lng) {
+    public TrackerPoint(double lat, double lng, long time) {
         this.lat = lat;
         this.lng = lng;
+        this.time = time;
     }
 
     public double getLat() {
@@ -29,5 +31,13 @@ public class TrackerPoint implements Serializable {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

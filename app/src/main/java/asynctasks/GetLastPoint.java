@@ -25,7 +25,7 @@ public class GetLastPoint  extends AsyncTask<Integer, Integer, TrackerPoint> {
 
         try {
             JSONObject resJson = new JSONObject(res);
-            return new TrackerPoint(resJson.getDouble("lat"), resJson.getDouble("lng"));
+            return new TrackerPoint(resJson.getDouble("lat"), resJson.getDouble("lng"), 0);
 
         } catch (JSONException ex) {
             ex.printStackTrace();

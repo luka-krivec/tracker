@@ -25,6 +25,9 @@ public final class Constants {
     // Number of points that are written in MongoDB in one API call
     public static final int INSERT_N_POINTS_WRITE_DB = 3;
 
+    // Number of seconds between live tracking update map
+    public static final int LIVE_TRACKING_UPDATE_INTERVAL = 5;
+
     // Android Shared Preferences name
     public static final String preferencesTracker = "TrackerPreferences";
 

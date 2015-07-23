@@ -2,6 +2,7 @@ package asynctasks;
 
 import android.os.AsyncTask;
 
+import si.krivec.tracker.TrackingActivity;
 import utils.Constants;
 import utils.WebUtils;
 
@@ -14,7 +15,7 @@ public class UserSetOnline extends AsyncTask<Object, Void, Void> {
 
     @Override
     protected Void doInBackground(Object... params) {
-        WebUtils.executePost(url, "idFacebook=" + params[0] + "&setOnline=" + params[1]);
+        WebUtils.executePost(url, "idFacebook=" + params[0] + "&setOnline=" + params[1] + "&onlineRouteId=" + TrackingActivity.idRoute);
         return null;
     }
 }

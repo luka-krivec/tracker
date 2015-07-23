@@ -7,23 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
-import asynctasks.GetLastPoint;
-import gpslogger.CyclingRoute;
 import si.krivec.tracker.LiveTrackerActivity;
-import si.krivec.tracker.MapActivity;
 import si.krivec.tracker.R;
-import utils.DateUtilities;
-import utils.TrackerPoint;
 import utils.User;
 
 
@@ -76,7 +67,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), user.getIdFacebook(), Toast.LENGTH_SHORT).show();
+            if(user.isOnline()) {
+                Intent trackingActivity = new Intent(v.getContext(), LiveTrackerActivity.class);
+                trackingActivity.putExtra("userFbId", user.getIdFacebook());
+                v.getContext().startActivity(trackingActivity);
+            } else {
+                Toast.makeText(v.getContext(), v.getResources().getString(R.string.user_not_online), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
