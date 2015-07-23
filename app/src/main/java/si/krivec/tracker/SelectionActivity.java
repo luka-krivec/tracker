@@ -49,14 +49,6 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
         {
             case R.id.action_settings:
                 return true;
-            /*case R.id.action_plans:
-                Intent plansActivity = new Intent(this, PlansActivity.class);
-                startActivity(plansActivity);
-                return true; */
-            case R.id.action_logout:
-                LoginManager.getInstance().logOut();
-                finish();
-                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -2,11 +2,13 @@ package adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = objects.get(position);
         holder.userName.setText(user.getUserName());
+        Drawable icStatus = user.isOnline() ? holder.view.getResources().getDrawable(R.drawable.ic_online) :
+                holder.view.getResources().getDrawable(R.drawable.ic_offline);
+        holder.imgStatus.setImageDrawable(icStatus);
         holder.user = user;
     }
 
@@ -57,12 +62,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView userName;
+        public ImageView imgStatus;
+        public View view;
         public User user;
 
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             userName = (TextView) v.findViewById(R.id.txtRowUsersUserName);
+            imgStatus = (ImageView) v.findViewById(R.id.imgStatus);
+            view = v;
         }
 
         @Override

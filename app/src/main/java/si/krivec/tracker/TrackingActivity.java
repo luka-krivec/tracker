@@ -34,6 +34,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
+import asynctasks.UserSetOnline;
 import dialogs.ErrorConnectingDialogFragment;
 import dialogs.SaveRouteDialogFragment;
 import gpslogger.BackgroundLocationService;
@@ -336,6 +337,7 @@ public class TrackingActivity extends ActionBarActivity
             case R.id.btnStopTracking:
                 stopStopWatch(); // To save more exact stop time (otherwise timer is stopped when user enters route name and click save)
                 btnPause.setEnabled(false);
+                new UserSetOnline().execute(MainActivity.USER_FB_ID, 0);
                 showSaveRouteDialog();
                 break;
             case R.id.btnPauseTimer:
@@ -343,6 +345,8 @@ public class TrackingActivity extends ActionBarActivity
                 break;
             case R.id.chkEnableLiveTracking:
                 liveTracking = chkEnableLiveTracking.isChecked();
+                int setOnline = liveTracking ? 1 : 0;
+                new UserSetOnline().execute(MainActivity.USER_FB_ID, setOnline);
                 break;
         }
     }

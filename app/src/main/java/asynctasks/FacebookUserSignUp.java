@@ -12,7 +12,7 @@ import utils.Constants;
 import utils.WebUtils;
 
 
-public class FacebookUserLogin extends AsyncTask<Profile, Integer, Void> {
+public class FacebookUserSignUp extends AsyncTask<Profile, Integer, Void> {
 
     @Override
     protected Void doInBackground(Profile... params) {

@@ -17,8 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import adapters.UsersAdapter;
+import asynctasks.UserIsOnline;
 import utils.User;
 
 
@@ -78,7 +80,12 @@ public class FriendsActivity extends AppCompatActivity {
 
                             for(int i = 0; i < data.length(); i++) {
                                 JSONObject friend = data.getJSONObject(i);
-                                friendsList.add(new User(friend.getString("name"), friend.getString("id")));
+                                try {
+                                    int isOnline = new UserIsOnline().execute(friend.getString("id")).get();
+                                    friendsList.add(new User(friend.getString("name"), friend.getString("id"), isOnline == 1));
+                                } catch (InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                             UsersAdapter usersAdapter = new UsersAdapter(FriendsActivity.this, R.layout.row_user, friendsList);

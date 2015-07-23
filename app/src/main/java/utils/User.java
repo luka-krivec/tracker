@@ -7,10 +7,12 @@ public class User {
 
     private String userName;
     private String idFacebook;
+    private boolean isOnline;
 
-    public User(String userName, String idFacebook) {
+    public User(String userName, String idFacebook, boolean isOnline) {
         this.userName = userName;
         this.idFacebook = idFacebook;
+        this.isOnline = isOnline;
     }
 
     public String getUserName() {
@@ -27,5 +29,13 @@ public class User {
 
     public void setIdFacebook(String idFacebook) {
         this.idFacebook = idFacebook;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(boolean isOnline) {
+        this.isOnline = isOnline;
     }
 }

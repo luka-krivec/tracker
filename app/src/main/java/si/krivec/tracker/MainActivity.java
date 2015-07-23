@@ -7,11 +7,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -19,12 +21,15 @@ import com.facebook.login.widget.LoginButton;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-import asynctasks.FacebookUserLogin;
+import asynctasks.FacebookUserSignUp;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private LoginButton loginButton;
+    private ProfileTracker profileTracker;
+    private AccessTokenTracker accessTokenTracker;
+
     CallbackManager callbackManager;
     public static String USER_FB_ID;
 
@@ -37,8 +42,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
-        if(AccessToken.getCurrentAccessToken()!=null) {
-            // User already login once
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                USER_FB_ID = currentProfile.getId();
+                signUpUser(currentProfile);
+            }
+        };
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+                // On AccessToken changes fetch the new profile which fires the event on
+                // the ProfileTracker if the profile is different
+                Profile.fetchProfileForCurrentAccessToken();
+            }
+        };
+
+        if(AccessToken.getCurrentAccessToken() != null) {
+            // Ensure that our profile is up to date
+            Profile.fetchProfileForCurrentAccessToken();
+            USER_FB_ID = Profile.getCurrentProfile().getId();
             Intent selectionActivity = new Intent(MainActivity.this, SelectionActivity.class);
             startActivity(selectionActivity);
         } else {
@@ -49,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sucess login", Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
                                     Arrays.asList("public_profile", "user_friends"));
-                            Profile profile = Profile.getCurrentProfile();
-                            USER_FB_ID = profile.getId();
-                            loginUser(profile);
 
                             // Start app main screen
                             Intent selectionActivity = new Intent(MainActivity.this, SelectionActivity.class);
@@ -78,9 +101,10 @@ public class MainActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void loginUser(Profile profile) {
+    private void signUpUser(Profile profile) {
+        USER_FB_ID = profile.getId();
         try {
-            new FacebookUserLogin().execute(profile).get();
+            new FacebookUserSignUp().execute(profile).get();
         } catch (InterruptedException | ExecutionException e) {
             Log.d("MainActivity login:", e.getMessage());
             e.printStackTrace();
