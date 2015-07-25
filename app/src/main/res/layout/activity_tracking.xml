@@ -104,7 +104,8 @@
                 android:layout_marginLeft="10dp"/>
 
             <CheckBox
-                android:id="@+id/chkEnableLiveTracking" />
+                android:id="@+id/chkEnableLiveTracking"
+                android:checked="true"/>
         </TableRow>
 
     </TableLayout>

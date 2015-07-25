@@ -484,6 +484,8 @@ public class TrackingActivity extends ActionBarActivity
         // Insert new route in Database
         RoutesUtils.insertNewRoute(MainActivity.USER_FB_ID);
 
+        new UserSetOnline().execute(MainActivity.USER_FB_ID, chkEnableLiveTracking.isChecked() ? 1 : 0);
+
         Intent locationService = new Intent(this, BackgroundLocationService.class);
         startService(locationService);
 
