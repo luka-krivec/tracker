@@ -88,6 +88,7 @@
     <string name="end_time">Čas konca</string>
     <string name="user_not_online">Uporabnik ni prijavljen</string>
     <string name="invite_friends">Povabi prijatelje</string>
+    <string name="live">LIVE!</string>
 
     <!-- ADs -->
     <string name="banner_ad_unit_id">ca-app-pub-4282290380259156/9917247821</string>
