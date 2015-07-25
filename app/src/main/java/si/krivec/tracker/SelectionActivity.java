@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 public class SelectionActivity extends ActionBarActivity implements View.OnClickListener {
@@ -32,6 +34,13 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
 
         btnLiveTracker = (Button) findViewById(R.id.btnLiveTracker);
         btnLiveTracker.setOnClickListener(this);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice("2442541079195F1861C00CFC0724E833")
+                .addTestDevice("TEST_EMULATOR")
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
