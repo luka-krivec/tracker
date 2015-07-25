@@ -11,6 +11,8 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +30,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewListUsers;
     private RecyclerView.LayoutManager recyclerViewLinearLayoutManager;
+    private static final String appLinkUrl = "https://fb.me/863248020428440";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,13 @@ public class FriendsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_invite_friends) {
+            if (AppInviteDialog.canShow()) {
+                AppInviteContent content = new AppInviteContent.Builder()
+                        .setApplinkUrl(appLinkUrl)
+                        .build();
+                AppInviteDialog.show(this, content);
+            }
             return true;
         }
 
