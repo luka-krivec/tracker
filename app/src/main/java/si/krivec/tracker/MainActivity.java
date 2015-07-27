@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.amazon.device.ads.AdRegistration;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     public static String USER_FB_ID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

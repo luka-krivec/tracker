@@ -6,9 +6,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.amazon.device.ads.Ad;
+import com.amazon.device.ads.AdError;
+import com.amazon.device.ads.AdProperties;
+import com.amazon.device.ads.AdRegistration;
+import com.amazon.device.ads.DefaultAdListener;
+import com.amazon.device.ads.InterstitialAd;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,10 +44,19 @@ public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDi
     private RecyclerView recyclerViewListRoutes;
     private RecyclerView.LayoutManager recyclerViewLinerLayoutManager;
 
+    private InterstitialAd interstitialAd;
+    private static final String amazonAppKey = "11577698e17d44dea9cb0d60d6de1d83";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_routes);
+
+        AdRegistration.setAppKey(amazonAppKey);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setListener(new MyCustomAdListener());
+        interstitialAd.loadAd();
 
         recyclerViewListRoutes = (RecyclerView) findViewById(R.id.recyclerViewListRoutes);
         recyclerViewListRoutes.setHasFixedSize(true);
@@ -226,5 +243,26 @@ public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDi
         CyclingRoute[] routes = getSavedRoutes();
         RoutesAdapter routesAdapter = new RoutesAdapter(this, R.layout.row_route, routes);
         recyclerViewListRoutes.setAdapter(routesAdapter);
+    }
+
+    class MyCustomAdListener extends DefaultAdListener
+    {
+        @Override
+        public void onAdLoaded(Ad ad, AdProperties adProperties)
+        {
+            interstitialAd.showAd();
+        }
+
+        @Override
+        public void onAdFailedToLoad(Ad ad, AdError error)
+        {
+            Log.d("Intertitial AD", "Load failed");
+        }
+
+        @Override
+        public void onAdDismissed(Ad ad)
+        {
+            Log.d("Intertitial AD", "Ad dismissed");
+        }
     }
 }
