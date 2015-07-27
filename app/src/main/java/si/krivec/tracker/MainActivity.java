@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     new FacebookCallback<LoginResult>() {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
-                            Toast.makeText(getApplicationContext(), "Sucess login", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Sucess login", Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
                                     Arrays.asList("public_profile", "user_friends"));
 
@@ -84,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancel() {
-                            Toast.makeText(getApplicationContext(), "Cancel login", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Cancel login", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(FacebookException e) {
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("Facebook Login error: ", e.getMessage());
                         }
                     });

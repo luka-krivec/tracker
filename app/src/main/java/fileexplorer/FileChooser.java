@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -66,7 +67,7 @@ public class FileChooser extends ListActivity {
                 }
             }
         }catch(Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.d("FileChooser", e.getMessage());
         }
 
         Collections.sort(dir);
