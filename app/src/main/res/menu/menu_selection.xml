@@ -3,5 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="si.krivec.tracker.SelectionActivity">
 
+    <item android:id="@+id/action_logout" android:title="@string/btn_logout"
+        android:orderInCategory="100" app:showAsAction="always" />
 
 </menu>

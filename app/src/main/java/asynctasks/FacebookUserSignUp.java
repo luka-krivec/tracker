@@ -21,24 +21,26 @@ public class FacebookUserSignUp extends AsyncTask<Profile, Integer, Void> {
     }
 
     private void userSignUp(Profile profile) {
-        String parameters = "userFbSignUp=true"
-                + "&username=" + profile.getFirstName() +
-                (profile.getMiddleName() != null ? profile.getMiddleName() + " " : " ") +  profile.getLastName()
-                + "&idFacebook=" + profile.getId();
+        if(profile != null) {
+            String parameters = "userFbSignUp=true"
+                    + "&username=" + profile.getFirstName() +
+                    (profile.getMiddleName() != null ? profile.getMiddleName() + " " : " ") + profile.getLastName()
+                    + "&idFacebook=" + profile.getId();
 
-        String response = WebUtils.executePost(Constants.BACKEND_URL + "/users", parameters);
+            String response = WebUtils.executePost(Constants.BACKEND_URL + "/users", parameters);
 
-        if(response != null) {
-            try {
-                JSONObject jsonResponse = new JSONObject(response);
+            if (response != null) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
 
-                if (jsonResponse.getBoolean("success")) {
-                    Log.d("FacebookUserLogin", "SUCCESS: " + jsonResponse.toString());
-                } else {
-                    Log.d("FacebookUserLogin", "WARNING: " + jsonResponse.toString());
+                    if (jsonResponse.getBoolean("success")) {
+                        Log.d("FacebookUserLogin", "SUCCESS: " + jsonResponse.toString());
+                    } else {
+                        Log.d("FacebookUserLogin", "WARNING: " + jsonResponse.toString());
+                    }
+                } catch (JSONException jex) {
+                    Log.d("FacebookUserLogin", "ERROR: " + jex.getMessage());
                 }
-            } catch (JSONException jex) {
-                Log.d("FacebookUserLogin", "ERROR: " + jex.getMessage());
             }
         }
     }

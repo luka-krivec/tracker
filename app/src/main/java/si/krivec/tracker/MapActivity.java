@@ -1,5 +1,6 @@
 package si.krivec.tracker;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -75,7 +76,7 @@ public class MapActivity extends FragmentActivity {
 
 
             //  Drive route
-            routeDriven.strokeColor(getResources().getColor(R.color.colorPrimary));
+            routeDriven.strokeColor(Color.RED);
             routeDriven.strokeWidth(5);
 
             mMap.addPolygon(routeDriven);
@@ -97,9 +98,9 @@ public class MapActivity extends FragmentActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+        //    return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }

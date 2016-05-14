@@ -5,6 +5,7 @@
     <string name="app_name">Live Sports Tracker</string>
     <string name="facebook_app_id">772751879478055</string>
 
+
     <!-- Menu actions names -->
     <string name="action_settings">Settings</string>
     <string name="action_importGpx">Import GPX</string>
@@ -40,6 +41,7 @@
     <string name="btn_login">Login</string>
     <string name="btn_discard">Discard</string>
     <string name="btn_friends">Friends</string>
+    <string name="btn_logout">Logout</string>
 
     <!-- Other translations -->
     <string name="route_saved">Route saved</string>
@@ -88,11 +90,9 @@
     <string name="end_time">End time</string>
     <string name="user_not_online">User not online</string>
     <string name="invite_friends">Invite friends</string>
-    <string name="live">LIVE!</string>
+    <string name="live">LIVE TRACKING</string>
 
     <!-- ADs -->
-    <string name="banner_ad_unit_id">ca-app-pub-4282290380259156/9917247821</string>
-
-
+    <string name="banner_ad_unit_id">ca-app-pub-6313274691210140/3059997711</string>
 
 </resources>

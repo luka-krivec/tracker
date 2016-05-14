@@ -40,6 +40,7 @@
     <string name="btn_login">Prijava</string>
     <string name="btn_discard">Zavrzi</string>
     <string name="btn_friends">Prijatelji</string>
+    <string name="btn_logout">Odjava</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
@@ -88,10 +89,10 @@
     <string name="end_time">Čas konca</string>
     <string name="user_not_online">Uporabnik ni prijavljen</string>
     <string name="invite_friends">Povabi prijatelje</string>
-    <string name="live">LIVE!</string>
+    <string name="live">Sledenje vživo</string>
 
     <!-- ADs -->
-    <string name="banner_ad_unit_id">ca-app-pub-4282290380259156/9917247821</string>
+    <string name="banner_ad_unit_id">ca-app-pub-6313274691210140/3059997711</string>
 
 
 
