@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.purplebrain.adbuddiz.sdk.AdBuddiz;
 
 import java.util.concurrent.ExecutionException;
 
@@ -39,6 +40,8 @@ public class LiveTrackerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_tracker);
+
+        AdBuddiz.showAd(this);
 
         idFacebook = getIntent().getExtras().getString("userFbId");
         int onlineRouteId = 0;
