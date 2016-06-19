@@ -14,7 +14,30 @@
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <Button
+        android:id="@+id/btnLoginMain"
+        android:text="@string/btn_login"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/login_button"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/abc_primary_text_disable_only_material_dark"/>
+
+    <Button
+        android:id="@+id/btnRegisterMain"
+        android:text="@string/btn_register"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/btnLoginMain"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/abc_primary_text_disable_only_material_dark"/>
 
 </RelativeLayout>

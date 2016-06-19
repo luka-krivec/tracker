@@ -12,6 +12,7 @@
     <string name="action_plans">Plans</string>
     <string name="action_logout">Logout</string>
     <string name="action_selectUser">Select user</string>
+    <string name="action_refresh_login">Refresh login data</string>
 
     <string name="alert_cant_read_data">Cannot read data</string>
 
@@ -29,6 +30,7 @@
     <string name="title_activity_live_tracker">Live tracker</string>
     <string name="title_activity_list_users">List users</string>
     <string name="title_activity_friends">Friends</string>
+    <string name="title_activity_registration">Registration</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pause</string>
@@ -42,6 +44,7 @@
     <string name="btn_discard">Discard</string>
     <string name="btn_friends">Friends</string>
     <string name="btn_logout">Logout</string>
+    <string name="btn_register">Register</string>
 
     <!-- Other translations -->
     <string name="route_saved">Route saved</string>
@@ -91,8 +94,18 @@
     <string name="user_not_online">User not online</string>
     <string name="invite_friends">Invite friends</string>
     <string name="live">LIVE TRACKING</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="data_required">Enter text in all fields</string>
+    <string name="password6">Password should be at least 6 characters long</string>
+    <string name="registration_success">Success</string>
+    <string name="login_with_facebook">For using this functionality you have to login with Facebook</string>
 
     <!-- ADs -->
     <string name="banner_ad_unit_id">ca-app-pub-6313274691210140/3059997711</string>
+
+
+    <!-- Hints -->
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
 
 </resources>

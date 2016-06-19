@@ -2,10 +2,14 @@ package si.krivec.tracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -20,6 +24,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.crash.FirebaseCrash;
 import com.purplebrain.adbuddiz.sdk.AdBuddiz;
 
 import java.util.Arrays;
@@ -34,7 +41,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LoginButton loginButton;
     private ProfileTracker profileTracker;
     private AccessTokenTracker accessTokenTracker;
-    private Button logoutButton;
+    private Button registerButton;
+    private Button loginMailButton;
+
+    // Firebase login
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     // Google Analytics
     private Tracker analyticsTracker;
@@ -48,11 +60,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Init Facebook login
+        super.onCreate(savedInstanceState);
+
+        initFacebookSDK();
+
+        mAuth = FirebaseAuth.getInstance();
+        initFirebaseAuth();
+
+        setContentView(R.layout.activity_main);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        //logoutButton = (Button) findViewById(R.id.btnLogout);
+
+        registerButton = (Button) findViewById(R.id.btnRegisterMain);
+        registerButton.setOnClickListener(this);
+
+        loginMailButton = (Button) findViewById(R.id.btnLoginMain);
+        loginMailButton.setOnClickListener(this);
+
+        configureFacebookProfileTracker();
+
+        configureFacebookAccessToken();
+
+        configureGoogleAnalytics();
+
+        configureAdBuddiz();
+    }
+
+    private void initFacebookSDK() {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+    }
 
-        //Init Google Analytics
+    private void configureGoogleAnalytics() {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         analyticsTracker = application.getDefaultTracker();
 
@@ -63,17 +102,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCategory("onCreate")
                 .setAction("Application opened")
                 .build());
+    }
 
-        // AdBuddiz
+    private void configureAdBuddiz() {
         AdBuddiz.setPublisherKey(ADDBUDDIZ_PUBLISHER_KEY);
         AdBuddiz.cacheAds(this);
+    }
 
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        //logoutButton = (Button) findViewById(R.id.btnLogout);
-
+    private void configureFacebookProfileTracker() {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
@@ -86,7 +122,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 signUpUser(currentProfile);
             }
         };
+    }
 
+    private void signUpUser(Profile profile) {
+        USER_FB_ID = profile != null ? profile.getId(): "";
+        try {
+            new FacebookUserSignUp().execute(profile).get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.d("MainActivity:", e.getMessage());
+            FirebaseCrash.report(e);
+            e.printStackTrace();
+        }
+
+        analyticsTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Login")
+                .setAction("User SIGN UP")
+                .build());
+    }
+
+    private void configureFacebookAccessToken() {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(
@@ -151,36 +205,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void initFirebaseAuth() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void signUpUser(Profile profile) {
-        USER_FB_ID = profile != null ? profile.getId(): "";
-        try {
-            new FacebookUserSignUp().execute(profile).get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.d("MainActivity:", e.getMessage());
-            e.printStackTrace();
-        }
-
-        analyticsTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Login")
-                .setAction("User SIGN UP")
-                .build());
-    }
-
     @Override
     public void onClick(View v) {
-        if(v.getId() == logoutButton.getId()) {
+        /*if(v.getId() == logoutButton.getId()) {
             analyticsTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("Login")
                     .setAction("User LOGOUT")
                     .build());
 
             LoginManager.getInstance().logOut();
+        }*/
+
+        if(v.getId() == registerButton.getId()) {
+            Intent register = new Intent(this, RegistrationActivity.class);
+            startActivity(register);
+        } else if(v.getId() == loginMailButton.getId()) {
+            Intent login = new Intent(this, LoginActivity.class);
+            startActivity(login);
         }
     }
 
@@ -191,5 +255,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(TAG, "Setting screen name: " + name);
         analyticsTracker.setScreenName("Image~" + name);
         analyticsTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_refresh_login_data) {
+            AccessToken.refreshCurrentAccessTokenAsync();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }

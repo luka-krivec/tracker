@@ -11,6 +11,7 @@
     <string name="action_plans">Plani</string>
     <string name="action_logout">Odjava</string>
     <string name="action_selectUser">Izberi uporabnika</string>
+    <string name="action_refresh_login">Osveži prijavne podatke</string>
 
     <string name="alert_cant_read_data">Nemorem prebrati podatkov</string>
 
@@ -28,6 +29,7 @@
     <string name="title_activity_live_tracker">Sledenje v živo</string>
     <string name="title_activity_list_users">Seznam uporabnikov</string>
     <string name="title_activity_friends">Prijatelji</string>
+    <string name="title_activity_registration">Registracija</string>
 
     <!-- Buttons translations -->
     <string name="btn_pause">Pavza</string>
@@ -41,6 +43,7 @@
     <string name="btn_discard">Zavrzi</string>
     <string name="btn_friends">Prijatelji</string>
     <string name="btn_logout">Odjava</string>
+    <string name="btn_register">Registracija</string>
 
     <!-- Other translations -->
     <string name="route_saved">Vožnja shranjena</string>
@@ -90,9 +93,18 @@
     <string name="user_not_online">Uporabnik ni prijavljen</string>
     <string name="invite_friends">Povabi prijatelje</string>
     <string name="live">Sledenje vživo</string>
+    <string name="authentication_failed">Avtentikacija neuspešna</string>
+    <string name="data_required">Vnesite tekst v vsa vnosna polja!</string>
+    <string name="password6">Geslo mora biti dolgo vsaj 6 znakov</string>
+    <string name="registration_success">Registracija uspešna</string>
+    <string name="login_with_facebook">Za uporabo te funkcionalnosti se morate prijaviti s Facebookom</string>
 
     <!-- ADs -->
     <string name="banner_ad_unit_id">ca-app-pub-6313274691210140/3059997711</string>
+
+    <!-- Hints -->
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Geslo</string>
 
 
 

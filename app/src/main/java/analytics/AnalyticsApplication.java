@@ -21,6 +21,7 @@ import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import si.krivec.tracker.R;
 
 /**
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
@@ -28,8 +29,6 @@ import com.google.android.gms.analytics.Tracker;
  */
 public class AnalyticsApplication extends Application {
     private Tracker mTracker;
-
-    private static final String GOOGLE_ANALYTICS_TRACKING_ID = "UA-77888818-1";
 
     /**
      * Gets the default {@link Tracker} for this {@link Application}.
@@ -39,7 +38,8 @@ public class AnalyticsApplication extends Application {
         if (mTracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-            mTracker = analytics.newTracker(GOOGLE_ANALYTICS_TRACKING_ID);
+            // mTracker = analytics.newTracker(R.xml.global_tracker);
+            mTracker = analytics.newTracker("UA-77888818-1");
         }
         return mTracker;
     }
