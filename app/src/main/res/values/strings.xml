@@ -99,6 +99,8 @@
     <string name="password6">Password should be at least 6 characters long</string>
     <string name="registration_success">Success</string>
     <string name="login_with_facebook">For using this functionality you have to login with Facebook</string>
+    <string name="empty_data_warning">Insert all necessary data</string>
+    <string name="invalid_registration">Invalid registration</string>
 
     <!-- ADs -->
     <string name="banner_ad_unit_id">ca-app-pub-6313274691210140/3059997711</string>

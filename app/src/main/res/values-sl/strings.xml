@@ -98,6 +98,8 @@
     <string name="password6">Geslo mora biti dolgo vsaj 6 znakov</string>
     <string name="registration_success">Registracija uspešna</string>
     <string name="login_with_facebook">Za uporabo te funkcionalnosti se morate prijaviti s Facebookom</string>
+    <string name="empty_data_warning">Vnesite vse potrebne podatke</string>
+    <string name="invalid_registration">Neveljavna registracija</string>
 
     <!-- ADs -->
     <string name="banner_ad_unit_id">ca-app-pub-6313274691210140/3059997711</string>

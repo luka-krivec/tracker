@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.crash.FirebaseCrash;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
@@ -61,16 +62,20 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(RegistrationActivity.this, R.string.password6,
-                                            Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(RegistrationActivity.this, task.getResult().toString(),
-                                            Toast.LENGTH_SHORT).show();
-                                    FirebaseCrash.log("Password less than 6 chars try");
-                                } else {
-                                    Toast.makeText(RegistrationActivity.this, R.string.registration_success,
-                                            Toast.LENGTH_SHORT).show();
-                                    finish();
+                                try {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(RegistrationActivity.this, R.string.password6,
+                                                Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegistrationActivity.this, task.getResult().toString(),
+                                                Toast.LENGTH_SHORT).show();
+                                        FirebaseCrash.log("Password less than 6 chars try");
+                                    } else {
+                                        Toast.makeText(RegistrationActivity.this, R.string.registration_success,
+                                                Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                } catch (Exception ex) {
+                                    Toast.makeText(getApplicationContext(), R.string.invalid_registration, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })

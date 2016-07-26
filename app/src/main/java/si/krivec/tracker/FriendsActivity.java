@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
@@ -42,6 +43,8 @@ public class FriendsActivity extends AppCompatActivity {
         recyclerViewListUsers = (RecyclerView) findViewById(R.id.recyclerViewListFriends);
         recyclerViewListUsers.setHasFixedSize(true);
         recyclerViewListUsers.setLayoutManager(recyclerViewLinearLayoutManager);
+
+        FacebookSdk.sdkInitialize(this);
 
         getFriends();
     }

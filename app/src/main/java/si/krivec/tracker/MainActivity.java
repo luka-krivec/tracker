@@ -1,6 +1,7 @@
 package si.krivec.tracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -84,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         configureGoogleAnalytics();
 
         configureAdBuddiz();
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("TrackerConf", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("signInWithEmailAndPassword", false);
+        editor.commit();
     }
 
     private void initFacebookSDK() {

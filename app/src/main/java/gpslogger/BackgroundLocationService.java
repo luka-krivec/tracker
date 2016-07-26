@@ -1,10 +1,13 @@
 package gpslogger;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -76,20 +79,18 @@ public class BackgroundLocationService extends Service {
         return ConnectionResult.SUCCESS == resultCode;
     }
 
-    public int onStartCommand (Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.d("TRACKER", "onStartCommand");
 
-        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected() && !mInProgress) {
+        if (servicesAvailable && TrackingActivity.mGoogleApiClient != null && TrackingActivity.mGoogleApiClient.isConnected() && !mInProgress) {
             startLocationUpdates();
             mInProgress = true;
             //Toast.makeText(getApplicationContext(), "Logger service started!", Toast.LENGTH_SHORT).show();
             return START_STICKY;
         }
 
-        if(TrackingActivity.mGoogleApiClient == null || !TrackingActivity.mGoogleApiClient.isConnected() || !TrackingActivity.mGoogleApiClient.isConnecting() && !mInProgress)
-        {
+        if (TrackingActivity.mGoogleApiClient == null || !TrackingActivity.mGoogleApiClient.isConnected() || !TrackingActivity.mGoogleApiClient.isConnecting() && !mInProgress) {
             //appendLog(DateFormat.getDateTimeInstance().format(new Date()) + ": Started", Constants.LOG_FILE);
             Log.d("TRACKING", DateFormat.getDateTimeInstance().format(new Date()) + ": NOT CONNECTED !!!");
             mInProgress = false;
@@ -97,7 +98,6 @@ public class BackgroundLocationService extends Service {
 
         return START_STICKY;
     }
-
 
 
     @Override
@@ -110,39 +110,31 @@ public class BackgroundLocationService extends Service {
         return mDateFormat.format(new Date());
     }
 
-    public void appendLog(String text, String filename)
-    {
+    public void appendLog(String text, String filename) {
         File logFile = new File(filename);
-        if (!logFile.exists())
-        {
-            try
-            {
+        if (!logFile.exists()) {
+            try {
                 logFile.createNewFile();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        try
-        {
+        try {
             //BufferedWriter for performance, true to set append to file flag
             BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
             buf.append(text);
             buf.newLine();
             buf.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         // Turn off the request flag
         mInProgress = false;
-        if(servicesAvailable && TrackingActivity.mGoogleApiClient != null) {
+        if (servicesAvailable && TrackingActivity.mGoogleApiClient != null) {
             stopLocationUpdates();
         }
 
@@ -163,6 +155,17 @@ public class BackgroundLocationService extends Service {
 
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 TrackingActivity.mGoogleApiClient, mLocationRequest, locationIntent);

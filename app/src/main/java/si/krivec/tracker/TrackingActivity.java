@@ -5,12 +5,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -92,7 +94,7 @@ public class TrackingActivity extends ActionBarActivity
             switch (msg.what) {
                 case MSG_UPDATE_TIMER:
                     updateUIData();
-                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE*1000); //text view is updated every REFRESH_RATE seconds,
+                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE * 1000); //text view is updated every REFRESH_RATE seconds,
                     break;                                  //though the timer is still running
                 case MSG_STOP_TIMER:
                     stopStopWatch();
@@ -103,28 +105,28 @@ public class TrackingActivity extends ActionBarActivity
     };
 
     private void stopStopWatch() {
-        if(BackgroundLocationService.timer != null) {
+        if (BackgroundLocationService.timer != null) {
             BackgroundLocationService.timer.stop();
             mHandler.removeMessages(MSG_UPDATE_TIMER); // No more updates.
         }
     }
 
     private void pauseStopWatch() {
-        if(BackgroundLocationService.timer != null) {
+        if (BackgroundLocationService.timer != null) {
             BackgroundLocationService.timer.pause();
             mHandler.removeMessages(MSG_UPDATE_TIMER); // No more updates.
         }
     }
 
     private void resumeStopWatch() {
-        if(BackgroundLocationService.timer != null) {
+        if (BackgroundLocationService.timer != null) {
             BackgroundLocationService.timer.resume();
             mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE * 1000); //text view is updated every REFRESH_RATE seconds,
         }
     }
 
     private void updateUIData() {
-        if(BackgroundLocationService.timer != null) {
+        if (BackgroundLocationService.timer != null) {
             long elapsed = BackgroundLocationService.timer.getElapsedTimeSecs();
             txtStopWatch.setText(DateUtilities.secondsTo_hhmmss(elapsed));
 
@@ -165,7 +167,7 @@ public class TrackingActivity extends ActionBarActivity
 
         updateValuesFromBundle(savedInstanceState);
 
-        if(BackgroundLocationService.timer == null || BackgroundLocationService.timer.isRunning()) {
+        if (BackgroundLocationService.timer == null || BackgroundLocationService.timer.isRunning()) {
             btnPause.setTag("Start");
             btnPause.setImageResource(R.drawable.button_pause);
         } else {
@@ -174,7 +176,7 @@ public class TrackingActivity extends ActionBarActivity
         }
 
         // Initialize folder on SD card for saving GPX files
-        if(AndroidUtils.isExternalStorageWritable()) {
+        if (AndroidUtils.isExternalStorageWritable()) {
             File dirExternalStorageRoot = getExternalFilesDir(null);
             dirExternalStorageGpxStore = new File(dirExternalStorageRoot.getAbsolutePath() + "/gpx");
             dirExternalStorageGpxStore.mkdirs();
@@ -203,7 +205,7 @@ public class TrackingActivity extends ActionBarActivity
             };
 
             String gpsDisabledWarningMessage = getApplicationContext().getResources().getString(R.string.gps_disabled_settings_open);
-            AlertDialog alertDialog = DialogUtils.createWaitDialog(TrackingActivity.this,gpsDisabledWarningMessage, command);
+            AlertDialog alertDialog = DialogUtils.createWaitDialog(TrackingActivity.this, gpsDisabledWarningMessage, command);
 
             try {
                 alertDialog.show();
@@ -222,7 +224,7 @@ public class TrackingActivity extends ActionBarActivity
     @Override
     protected void onStart() {
         super.onStart();
-        if (!mResolvingError) {
+        if (!mResolvingError && mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
     }
@@ -253,6 +255,17 @@ public class TrackingActivity extends ActionBarActivity
     private void resumeLocationService() {
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), BackgroundLocationService.LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, BackgroundLocationService.mLocationRequest, locationIntent);

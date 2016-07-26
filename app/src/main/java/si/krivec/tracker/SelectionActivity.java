@@ -1,6 +1,7 @@
 package si.krivec.tracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
@@ -9,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -24,6 +27,8 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+
+        FacebookSdk.sdkInitialize(this);
 
         btnLauncherStart = (ImageButton) findViewById(R.id.btnLauncherStart);
         btnLauncherStart.setOnClickListener(this);
@@ -62,6 +67,8 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
             //    return true;
             case R.id.action_logout:
                 LoginManager.getInstance().logOut();
+                Intent loginActivity = new Intent(this, MainActivity.class);
+                startActivity(loginActivity);
                 return true;
         }
 
@@ -80,8 +87,16 @@ public class SelectionActivity extends ActionBarActivity implements View.OnClick
                 startActivity(listRoutesActivity);
                 break;
             case R.id.btnLiveTracker:
-                Intent friendsActivity = new Intent(this, FriendsActivity.class);
-                startActivity(friendsActivity);
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("TrackerConf", 0); // 0 - for private mode
+                boolean signInWithEmailAndPassword = pref.getBoolean("signInWithEmailAndPassword", false);
+
+                if(!signInWithEmailAndPassword) {
+                    Intent friendsActivity = new Intent(this, FriendsActivity.class);
+                    startActivity(friendsActivity);
+                } else {
+                    Toast.makeText(this, R.string.login_with_facebook, Toast.LENGTH_LONG).show();
+                }
+
                 break;
         }
     }

@@ -83,6 +83,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String email = txtEmail.getText().toString();
             String password = txtPassword.getText().toString();
 
+            if(email.length() == 0 || password.length() == 0) {
+                Toast.makeText(this, R.string.empty_data_warning, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
