@@ -1,5 +1,6 @@
 package si.krivec.tracker;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,9 +13,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -58,6 +61,8 @@ public class TrackingActivity extends ActionBarActivity
     private final int MSG_UPDATE_TIMER = 2;
     private final int REFRESH_RATE = 1; // refresh rate for timer in seconds
     private final int REFRESH_SPEED_AND_DISTANCE = 10; // refresh speed and distance on screen every n seconds
+    private final int PERMISSION_REQUEST_LOCATION_RESUME = 100;
+    private final int PERMISSION_REQUEST_LOCATION_START = 200;
 
     private TextView txtStopWatch;
     private TextView txtCurrentDistance;
@@ -256,14 +261,11 @@ public class TrackingActivity extends ActionBarActivity
         Intent intent = new Intent(getApplicationContext(), LocationReceiver.class);
         PendingIntent locationIntent = PendingIntent.getBroadcast(getApplicationContext(), BackgroundLocationService.LOCATION_TRACKING_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            String[] permissionsNeeded = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                                                      android.Manifest.permission.ACCESS_COARSE_LOCATION};
+            ActivityCompat.requestPermissions(this, permissionsNeeded, PERMISSION_REQUEST_LOCATION_RESUME);
             return;
         }
 
@@ -278,7 +280,9 @@ public class TrackingActivity extends ActionBarActivity
 
     @Override
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+        if(mGoogleApiClient != null) {
+            mGoogleApiClient.disconnect();
+        }
         super.onStop();
     }
 
@@ -483,10 +487,18 @@ public class TrackingActivity extends ActionBarActivity
         Log.d("Google Play Services", "CONNECTED");
         //Toast.makeText(this, "Google Play Services connected!", Toast.LENGTH_SHORT).show();
 
+
         if (mRequestingLocationUpdates) {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                String[] permissionsNeeded = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION};
+                ActivityCompat.requestPermissions(this, permissionsNeeded, PERMISSION_REQUEST_LOCATION_START);
+                return;
+            }
+
             startLocationService();
             mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
-
         }
     }
 
@@ -575,4 +587,22 @@ public class TrackingActivity extends ActionBarActivity
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode) {
+            case PERMISSION_REQUEST_LOCATION_RESUME:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    resumeLocationService();
+                }
+                return;
+            case PERMISSION_REQUEST_LOCATION_START:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startLocationService();
+                    mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
+                }
+                return;
+        }
+    }
 }
