@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.common.base.Strings;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,11 +44,13 @@ public class RoutesUtils {
             protected Intent doInBackground(String... params) {
                 String res = WebUtils.executePost(url, paramsInsert);
 
-                try {
-                    JSONObject resJson = new JSONObject(res);
-                    TrackingActivity.idRoute = resJson.getInt("idRoute");
-                } catch (JSONException ex) {
-
+                if(!Strings.isNullOrEmpty(res)) {
+                    try {
+                        JSONObject resJson = new JSONObject(res);
+                        TrackingActivity.idRoute = resJson.getInt("idRoute");
+                    } catch (JSONException ex) {
+                        Log.d("ROUTES insertNewRoute", ex.getMessage());
+                    }
                 }
 
                 Log.d("ROUTES insertNewRoute", res);
