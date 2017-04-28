@@ -79,7 +79,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
@@ -118,6 +117,7 @@
     <orderEntry type="library" exported="" name="firebase-core-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="guava-19.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-gcm-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="firebase-messaging-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-auth-base-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-9.0.2" level="project" />

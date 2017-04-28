@@ -15,8 +15,8 @@ android {
         applicationId "si.krivec.tracker"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 11
-        versionName "2.0"
+        versionCode 12
+        versionName "2.1"
     }
     buildTypes {
         release {
@@ -64,7 +64,7 @@ dependencies {
     // Firebase analytics
     compile 'com.google.firebase:firebase-core:9.0.2'
     compile 'com.google.firebase:firebase-crash:9.0.2'
-    //compile 'com.google.firebase:firebase-messaging:9.0.2'
+    compile 'com.google.firebase:firebase-messaging:9.0.2'
     compile 'com.google.firebase:firebase-auth:9.0.2'
 
     // Amazon ads
