@@ -45,6 +45,8 @@ public class RoutesUtils {
                 String res = WebUtils.executePost(url, paramsInsert);
 
                 if(!Strings.isNullOrEmpty(res)) {
+                    Log.d("ROUTES insertNewRoute", res);
+
                     try {
                         JSONObject resJson = new JSONObject(res);
                         TrackingActivity.idRoute = resJson.getInt("idRoute");
@@ -52,8 +54,6 @@ public class RoutesUtils {
                         Log.d("ROUTES insertNewRoute", ex.getMessage());
                     }
                 }
-
-                Log.d("ROUTES insertNewRoute", res);
 
                 return null;
             }

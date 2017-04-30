@@ -403,7 +403,7 @@ public class TrackingActivity extends ActionBarActivity
                         new Date(startTime), new Date(endTime));
 
                 // Save route online
-                RoutesUtils.updateRoute(1, routeName, LocationReceiver.currentDistance,
+                RoutesUtils.updateRoute(TrackingActivity.idRoute, routeName, LocationReceiver.currentDistance,
                         LocationReceiver.currentDistance/(elapsed/1000), new Timestamp(startTime), new Timestamp(endTime));
 
                 if(saveStatus) {

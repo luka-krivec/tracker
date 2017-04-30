@@ -15,8 +15,8 @@ android {
         applicationId "si.krivec.tracker"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 12
-        versionName "2.1"
+        versionCode 13
+        versionName "2.2"
     }
     buildTypes {
         release {
