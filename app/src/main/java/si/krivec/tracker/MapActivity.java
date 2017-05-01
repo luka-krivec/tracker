@@ -9,14 +9,16 @@ import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import utils.GpxParser;
 
 
-public class MapActivity extends FragmentActivity {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private LatLng[] arrayLatLng;
@@ -45,11 +47,7 @@ public class MapActivity extends FragmentActivity {
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
-            mMap = mapFragment.getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
+            mapFragment.getMapAsync(this);
         }
     }
 
@@ -65,7 +63,7 @@ public class MapActivity extends FragmentActivity {
             }
 
             // Set marker on start of the route
-            //mMap.addMarker(new MarkerOptions().position(startPosition).title("Start"));
+            mMap.addMarker(new MarkerOptions().position(startPosition).title("Start"));
 
             CameraPosition startCameraPosition = new CameraPosition.Builder()
                     .target(startPosition)
@@ -103,5 +101,11 @@ public class MapActivity extends FragmentActivity {
         //}
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        setUpMap();
     }
 }
