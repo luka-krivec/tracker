@@ -73,13 +73,13 @@ public class TrackingActivity extends ActionBarActivity
 
     private File dirExternalStorageGpxStore;
 
-    private int counterRefreshSpeedAndDistance; // to refresh speed and distance on REFRESH_SPEED_AND_DISTANCE seconds
+    private long counterRefreshSpeedAndDistance; // to refresh speed and distance on REFRESH_SPEED_AND_DISTANCE seconds
 
     public static GoogleApiClient mGoogleApiClient;
-    public static boolean liveTracking = false;
+    public static boolean liveTracking = true;
 
     // Id route for further update route
-    public static int idRoute = 0;
+    public static int idRoute;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;

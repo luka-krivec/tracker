@@ -5,21 +5,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.common.base.Strings;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
-import si.krivec.tracker.SelectionActivity;
 import si.krivec.tracker.TrackingActivity;
 
 /**
@@ -44,15 +36,13 @@ public class RoutesUtils {
             protected Intent doInBackground(String... params) {
                 String res = WebUtils.executePost(url, paramsInsert);
 
-                if(!Strings.isNullOrEmpty(res)) {
-                    Log.d("ROUTES insertNewRoute", res);
+                Log.d("ROUTES insertNewRoute", res);
 
-                    try {
-                        JSONObject resJson = new JSONObject(res);
-                        TrackingActivity.idRoute = resJson.getInt("idRoute");
-                    } catch (JSONException ex) {
-                        Log.d("ROUTES insertNewRoute", ex.getMessage());
-                    }
+                try {
+                    JSONObject resJson = new JSONObject(res);
+                    TrackingActivity.idRoute = resJson.getInt("idRoute");
+                } catch (JSONException ex) {
+                    Log.d("ROUTES insertNewRoute", ex.getMessage());
                 }
 
                 return null;
@@ -73,7 +63,8 @@ public class RoutesUtils {
             @Override
             protected Intent doInBackground(String... params) {
                 String res = WebUtils.executePost(url, paramsDelete);
-                Log.d("ROUTES insertNewRoute", res);
+
+                Log.d("ROUTES deleteRoute", res);
 
                 return null;
             }
@@ -107,6 +98,7 @@ public class RoutesUtils {
             @Override
             protected Intent doInBackground(String... params) {
                 String res = WebUtils.executePost(url, paramsUpdate);
+
                 Log.d("ROUTES updateRoute", res);
 
                 return null;

@@ -27,7 +27,7 @@ public class LocationReceiver extends BroadcastReceiver {
     public static String lastUpdateTime;
     public static double currentDistance = 0;
     public static double maxSpeed = 0;
-    private static int n = 0;
+    private static long n = 0;
 
     private Context ctx;
 
@@ -76,7 +76,7 @@ public class LocationReceiver extends BroadcastReceiver {
 
             loggedLatLng.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
 
-            if(TrackingActivity.liveTracking && (n % Constants.INSERT_N_POINTS_WRITE_DB == 0)) {
+            if(TrackingActivity.liveTracking && ((n % Constants.INSERT_N_POINTS_WRITE_DB) == 0)) {
                 TrackerUtils.insertPointsInDatabase(TrackingActivity.idRoute, loggedLocations);
             }
         }
