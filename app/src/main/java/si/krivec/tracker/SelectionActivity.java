@@ -3,7 +3,8 @@ package si.krivec.tracker;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +18,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-public class SelectionActivity extends ActionBarActivity implements View.OnClickListener {
+public class SelectionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton btnLauncherStart;
     private ImageButton btnLauncherActivities;

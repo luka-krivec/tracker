@@ -5,19 +5,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.purplebrain.adbuddiz.sdk.AdBuddiz;
 
 import java.util.concurrent.ExecutionException;
 
@@ -27,7 +27,7 @@ import utils.Constants;
 import utils.TrackerPoint;
 
 
-public class LiveTrackerActivity extends AppCompatActivity {
+public class LiveTrackerActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private MapFragment mapFragment;
@@ -40,8 +40,6 @@ public class LiveTrackerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_tracker);
-
-        AdBuddiz.showAd(this);
 
         idFacebook = getIntent().getExtras().getString("userFbId");
         int onlineRouteId = 0;
@@ -130,7 +128,7 @@ public class LiveTrackerActivity extends AppCompatActivity {
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
-            mMap = mapFragment.getMap();
+            mapFragment.getMapAsync(this);
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 //setUpMap();
@@ -153,5 +151,11 @@ public class LiveTrackerActivity extends AppCompatActivity {
         Intent liveTrackingService = new Intent(this, LiveTrackingService.class);
         stopService(liveTrackingService);
         super.onDestroy();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        Log.d("LiveTrackerActivity", "Google Map ready");
     }
 }
