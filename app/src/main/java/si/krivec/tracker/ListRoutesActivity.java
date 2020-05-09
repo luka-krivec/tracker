@@ -1,11 +1,11 @@
 package si.krivec.tracker;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +39,7 @@ import utils.GpxParser;
 import utils.Utils;
 
 
-public class ListRoutesActivity extends ActionBarActivity implements ImportGpxDialogFragment.NoticeDialogListener {
+public class ListRoutesActivity extends AppCompatActivity implements ImportGpxDialogFragment.NoticeDialogListener {
 
     private RecyclerView recyclerViewListRoutes;
     private RecyclerView.LayoutManager recyclerViewLinerLayoutManager;

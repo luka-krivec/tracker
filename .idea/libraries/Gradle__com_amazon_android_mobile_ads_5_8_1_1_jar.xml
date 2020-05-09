@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.amazon.android:mobile-ads:5.8.1.1@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.amazon.android/mobile-ads/5.8.1.1/86b759d4f96c245d1ac7fc20536af5f4e9d52144/mobile-ads-5.8.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.amazon.android/mobile-ads/5.8.1.1/13f24a1ee81e56b20d6b8c9aed5fe39bb72c7f14/mobile-ads-5.8.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

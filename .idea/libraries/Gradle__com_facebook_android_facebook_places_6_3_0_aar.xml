@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.facebook.android:facebook-places:6.3.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0dc08c681c57a1dee0f80ce0d6ef93bd/jetified-facebook-places-6.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0dc08c681c57a1dee0f80ce0d6ef93bd/jetified-facebook-places-6.3.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-places/6.3.0/e3d6de104ef5d00e1b67afefd7d3ae7e039696bd/facebook-places-6.3.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-places/6.3.0/18b7fa10081621cb07adfe2abe6b9ce203a87345/facebook-places-6.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

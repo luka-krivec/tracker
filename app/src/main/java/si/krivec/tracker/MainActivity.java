@@ -2,40 +2,41 @@ package si.krivec.tracker;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.crash.FirebaseCrash;
-import com.purplebrain.adbuddiz.sdk.AdBuddiz;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
@@ -63,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CallbackManager callbackManager;
     public static String USER_FB_ID;
 
-    private static final String ADDBUDDIZ_PUBLISHER_KEY = "579dda59-d218-483e-ad84-79e1fd885d2a";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
         initFirebaseAuth();
+        initFirebaseDynamicLinks();
+        initAdMobMobileAds();
 
         setContentView(R.layout.activity_main);
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -90,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         configureGoogleAnalytics();
 
-        configureAdBuddiz();
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences("TrackerConf", 0); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean("signInWithEmailAndPassword", false);
@@ -99,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initFacebookSDK() {
-        FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
     }
 
@@ -114,11 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCategory("onCreate")
                 .setAction("Application opened")
                 .build());
-    }
-
-    private void configureAdBuddiz() {
-        AdBuddiz.setPublisherKey(ADDBUDDIZ_PUBLISHER_KEY);
-        AdBuddiz.cacheAds(this);
     }
 
     private void configureFacebookProfileTracker() {
@@ -232,6 +225,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // ...
             }
         };
+    }
+
+    private void initFirebaseDynamicLinks() {
+        FirebaseAnalytics.getInstance(this);
+
+        FirebaseDynamicLinks.getInstance()
+            .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                        }
+
+
+                        // Handle the deep link. For example, open the linked
+                        // content, or apply promotional credit to the user's
+                        // account.
+                        // ...
+
+                        // ...
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "getDynamicLink:onFailure", e);
+                    }
+                });
+    }
+
+    private void initAdMobMobileAds() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
     }
 
     @Override

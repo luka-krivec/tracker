@@ -1,9 +1,11 @@
 package si.krivec.tracker;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 import adapters.UsersAdapter;
 import asynctasks.UserIsOnline;
+import utils.DynamicLinksUtil;
 import utils.User;
 
 
@@ -44,8 +47,6 @@ public class FriendsActivity extends AppCompatActivity {
         recyclerViewListUsers.setHasFixedSize(true);
         recyclerViewListUsers.setLayoutManager(recyclerViewLinearLayoutManager);
 
-        FacebookSdk.sdkInitialize(this);
-
         getFriends();
     }
 
@@ -64,12 +65,13 @@ public class FriendsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_invite_friends) {
-            if (AppInviteDialog.canShow()) {
-                AppInviteContent content = new AppInviteContent.Builder()
-                        .setApplinkUrl(appLinkUrl)
-                        .build();
-                AppInviteDialog.show(this, content);
-            }
+            Uri link = DynamicLinksUtil.generateContentLink();
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, link.toString());
+
+            startActivity(Intent.createChooser(intent, "Share Link"));
             return true;
         }
 
