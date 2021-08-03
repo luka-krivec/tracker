@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class TrackerUtils {
 
     public static void insertPointInDatabase(int idRoute, Location loc, final Context ctx) {
-        final String url = Constants.BACKEND_URL + "/tracker";
+        final String url = Constants.MONGODB_URL + "/tracker";
         final String paramsInsert =
                   "idRoute=" + idRoute
                 + "&lat=" + loc.getLatitude()
@@ -41,7 +41,7 @@ public class TrackerUtils {
      * @param loggedLocations
      */
     public static void insertPointsInDatabase(final int idRoute, ArrayList<Location> loggedLocations) {
-        final String url = Constants.BACKEND_URL + "/tracker";
+        final String url = Constants.MONGODB_URL + "/tracker";
 
         StringBuilder latsBuilder = new StringBuilder();
         StringBuilder lonsBuilder = new StringBuilder();

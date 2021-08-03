@@ -4,6 +4,7 @@ public final class Constants {
 
     //public static final String BACKEND_URL = "http://cyclingmaster-mobilebackend.rhcloud.com";
     public static final String BACKEND_URL = "https://live-sports-tracker.herokuapp.com";
+    public static final String MONGODB_URL = "cluster0.leml1.mongodb.net";
 
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
